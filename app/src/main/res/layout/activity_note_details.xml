@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lite_blue"
+    tools:context=".activity.NoteDetails">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toolbarofnotedetails"
+        android:background="@color/lite_bgi">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/_12sdp"
+            android:textSize="@dimen/_20ssp"
+            android:textStyle="bold"
+            android:text="Title Displayed Here"
+            android:textColor="@color/black"
+            android:id="@+id/titleofnodtedetail"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="@dimen/_15sdp"
+        android:background="#EEEFF3"
+        android:gravity="top|left"
+        android:textColor="@color/black"
+        android:hint="Enter your note content here"
+        android:layout_below="@+id/toolbarofnotedetails"
+        android:padding="@dimen/_15sdp"
+        android:id="@+id/contentofnotedetails"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/gotoeditnote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_30sdp"
+        android:src="@drawable/edit"
+        android:layout_gravity="bottom|end"
+        android:contentDescription="TODO" />
+
+</RelativeLayout>

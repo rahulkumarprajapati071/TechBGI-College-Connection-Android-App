@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">TechBGI</string>
+    <string name="campus.desc">Sushila Devi Bansal College, Indore is a private engineering institute that is continuously striving to promote a holistic development of the students along with a strong emphasis on practical based learning. SDBC has a wide spread infra, well equipped with the right equipment for the overall development of a student.</string>
+    <string name="canteen.desc">College canteen is one of the most happening places in the campus. Of course, it is known for its savory food, but it is also the place where you make some of the best memories of your college life Here are some of the most memorable pictures which you can see-</string>
+    <string name="bus.desc">College bus facility is available from every corner of indore. This facility is also available from Dewas, Dhar, Dhamnod and Pithampur. As institute is located on NH3 between Indore and Mhow, it is also easily accessible from city with intercity bus service.</string>
+    <string name="sport.desc">The chief objective of sports is, of course, bodily exercise. The famous quote is, “A sound body has a sound mind”. The health of the body is essential for success in life. An unhealthy student always feels weakness, thus loses confidence, and becomes dull and inactive. To be healthy, one must take an active interest in sports and games.</string>
+    <string name="workshop.desc">Sushila Devi Bansal College, Indore has established e-Yantra Lab in collaboration with IIT Bombay in May 2018.Every Year e-Yantra conducts eYRC (eYantra robotic competition) and eYIC (eYantra Idea Competition)</string>
+    <string name="conference.desc">The College focuses not only on the right knowledge to be imparted but also in inculcating the right attitude, so that when a student reaches his/her prime in the final year he/she is well-trained and well-groomed to face the competitive challenges waiting to be faced outside the institution.</string>
+    <string name="library.desc"> “Library – from the Latin word  liber, meaning “book.” Library is an important part of  organization. A collection or group of collections of books and/or other print or nonprint materials organized and maintained for use (reading, consultation, study, research, etc.).</string>
+    <string name="topzone">TopZone</string>
+    <string name="didn_t_receive_the_otp">Didn\'t receive the otp.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="choose_option">Choose an option</string>
+
+    <string-array name="semester">
+        <item>select</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+
+</resources>

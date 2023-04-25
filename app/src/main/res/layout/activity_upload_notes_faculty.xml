@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lite_blue"
+    tools:context=".activity.UploadNotesFaculty">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:src="@drawable/note"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_120sdp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Notes"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/_25sdp"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_gravity="center"/>
+
+
+        <Spinner
+            android:id="@+id/semester"
+            android:layout_width="@dimen/_230sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/sign_style_spinner"
+            android:layout_marginTop="@dimen/_30sdp"/>
+
+        <Spinner
+            android:id="@+id/branch"
+            android:layout_width="@dimen/_230sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/sign_style_spinner"
+            android:layout_marginTop="@dimen/_10sdp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/next"
+            android:layout_width="@dimen/_230sdp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/abhayalibrebold"
+            android:text="next"
+            android:textSize="@dimen/_15ssp"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_gravity="center"
+            android:shadowColor="@color/black"
+            android:shadowDx="4"
+            android:shadowDy="5"
+            android:shadowRadius="4"
+            android:elevation="@dimen/_10sdp"
+            android:background="@drawable/front_button"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="@dimen/_40sdp"
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:src="@drawable/ic_add_black_24dp"
+        android:contentDescription="TODO" />
+
+</RelativeLayout>

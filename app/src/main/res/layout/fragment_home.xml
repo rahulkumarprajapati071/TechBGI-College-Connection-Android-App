@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.HomeScreen">
+
+    <com.denzcoskun.imageslider.ImageSlider
+        android:id="@+id/image_slider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+        app:iss_auto_cycle="true"
+        app:iss_delay="600"
+        app:iss_error_image="@drawable/error"
+        app:iss_period="3000"
+        app:iss_placeholder="@drawable/signup"
+        app:iss_selected_dot="@drawable/signup"
+        app:iss_unselected_dot="@drawable/front_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/searchEdt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_40sdp"
+        android:layout_marginEnd="@dimen/_40sdp"
+        android:background="@drawable/search"
+        android:elevation="20dp"
+        android:drawableStart="@drawable/baseline_search_24"
+        android:ems="10"
+        android:hint="search here"
+        android:inputType="textPersonName"
+        android:padding="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_slider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_slider" />
+
+    <ImageView
+        android:id="@+id/google"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/searchEdt"
+        app:layout_constraintEnd_toEndOf="@+id/searchEdt"
+        app:layout_constraintHorizontal_bias="0.96"
+        android:elevation="@dimen/_20sdp"
+        app:layout_constraintStart_toStartOf="@+id/searchEdt"
+        app:layout_constraintTop_toTopOf="@+id/searchEdt"
+        app:srcCompat="@drawable/google_icon" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoryList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchEdt" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "717258979651",
+    "project_id": "techbgi",
+    "storage_bucket": "techbgi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:717258979651:android:1850fad79338dd506bd7f6",
+        "android_client_info": {
+          "package_name": "com.example.techbgi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "717258979651-gaii5eikrj9j7g9l2suuhsc0ie5pm55q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAajmkXFX-Mytx-U8s-ITtW1OsxfFiWmno"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "717258979651-gaii5eikrj9j7g9l2suuhsc0ie5pm55q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

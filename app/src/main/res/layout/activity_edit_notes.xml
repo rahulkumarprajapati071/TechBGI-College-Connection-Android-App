@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lite_blue"
+    tools:context=".activity.EditNotes">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toolbarofeditnote"
+        android:background="@color/lite_bgi">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/_12sdp"
+            android:textSize="@dimen/_18ssp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:id="@+id/edittitleofnote"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="@dimen/_15sdp"
+        android:background="#EEEFF3"
+        android:gravity="top|left"
+        android:textColor="@color/black"
+        android:layout_below="@+id/toolbarofeditnote"
+        android:padding="@dimen/_15sdp"
+        android:id="@+id/editcontentofnote"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/saveeditnote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_30sdp"
+        android:src="@drawable/upload"
+        android:layout_gravity="bottom|end"
+        android:contentDescription="TODO" />
+
+</RelativeLayout>

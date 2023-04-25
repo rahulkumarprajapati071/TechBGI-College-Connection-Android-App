@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lite_blue"
+    tools:context=".activity.FrontScreen">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:ignore="MissingClass">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_80sdp"
+                    android:fontFamily="@font/akronimregular"
+                    android:shadowColor="#000000"
+                    android:shadowDx="0"
+                    android:shadowDy="4"
+                    android:shadowRadius="6"
+                    android:text="TechBGI"
+                    android:textColor="@color/bgi_blue"
+                    android:textSize="@dimen/_30ssp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="We are BGI"
+                    android:textColor="@color/bgi_blue"
+                    android:textSize="@dimen/_12ssp" />
+
+                <ImageView
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_90sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:background="@drawable/bgilogo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_130sdp"
+                    android:fontFamily="@font/akayakanadakaregular"
+                    android:text="Continue as a"
+                    android:textSize="@dimen/_20ssp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/asFaculty"
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/front_button"
+                    android:fontFamily="@font/abhayalibrebold"
+                    android:text="Faculty"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/_15ssp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/asStudent"
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_30sdp"
+                    android:background="@drawable/front_button"
+                    android:fontFamily="@font/abhayalibrebold"
+                    android:text="Student"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15ssp" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/suggestionBtn"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_27sdp"
+                android:layout_marginBottom="@dimen/_50sdp"
+                android:src="@drawable/suggestion" />
+        </RelativeLayout>
+</RelativeLayout>

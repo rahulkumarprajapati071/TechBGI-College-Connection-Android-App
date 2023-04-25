@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/allnotes"
+    android:layout_width="match_parent"
+    android:background="@color/lite_blue"
+    android:layout_height="match_parent"
+    tools:context=".activity.AllNotesScreen">
+
+    <include
+        android:id="@+id/attentoolbarMain"
+        layout="@layout/attentoolbar"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/attentoolbarMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recnoteview"/>
+
+</RelativeLayout>

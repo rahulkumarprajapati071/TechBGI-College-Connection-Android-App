@@ -1,0 +1,86 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Suggestion Box"
+                android:textColor="@color/bgi_blue"
+                android:fontFamily="@font/robotomedium"
+                android:textStyle="bold"
+                android:textSize="@dimen/_20ssp"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_30sdp"
+                android:padding="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_90sdp"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Please describe any problem if you are face or give any suggestions or idea"
+                android:textColor="@color/bgi_blue"
+                android:fontFamily="@font/robotomedium"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/_40sdp"
+                android:layout_marginRight="@dimen/_40sdp"
+                android:textSize="@dimen/_10ssp"
+                android:padding="@dimen/_10sdp"
+                android:background="@drawable/noticebackground"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"/>
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_100sdp"
+                android:hint="Your good name please"
+                android:inputType="textMultiLine"
+                android:minLines="1"
+                android:maxLines="1"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:background="@drawable/noticebackground"
+                android:padding="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/suggestion_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Share your feedback"
+                android:inputType="textMultiLine"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:background="@drawable/noticebackground"
+                android:padding="@dimen/_10sdp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/sendBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:text="send"
+                android:background="@drawable/feeshapet"
+                android:paddingStart="@dimen/_30sdp"
+                android:paddingEnd="@dimen/_30sdp"
+                android:textSize="@dimen/_20sdp"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/_400sdp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

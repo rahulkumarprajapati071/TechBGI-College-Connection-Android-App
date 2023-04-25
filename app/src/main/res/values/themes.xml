@@ -1,0 +1,21 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.TechBGI" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorPrimaryDark">#E3ECFA</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+<!--    </style>-->
+<!--    <style name="toolbartex" parent="TextAppearance.MaterialComponents.Button">-->
+<!--        <item name = "android:textSize">@dimen/_16sdp</item>-->
+<!--    </style>-->
+<!--    <style name="Theme.TechBGI.Toolbar" parent="Widget.AppCompat.Toolbar">-->
+<!--        <item name="android:background"></item>-->
+    </style>
+</resources>

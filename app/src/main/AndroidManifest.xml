@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.techbgi">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/bgilogo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.TechBGI"
+        tools:targetApi="31">
+        <activity
+            android:name=".activity.SuggestionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AttendanceViewPage"
+            android:exported="false" />
+        <activity
+            android:name=".activity.StudentAttandanceSearch"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UploadTimeTable"
+            android:exported="false" />
+        <activity
+            android:name=".activity.NoticePage"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ViewImage"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ViewPDF"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AllNotesScreen"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SelectNotes"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UploadNotesFaculty"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ForgotPasswordScreen"
+            android:exported="false" />
+        <activity
+            android:name=".chat.ChatActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity
+            android:name=".activity.MessageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MarksOfStudentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UploadMarks"
+            android:exported="false" />
+        <activity
+            android:name=".activity.NoteDetails"
+            android:exported="false" />
+        <activity
+            android:name=".activity.EditNotes"
+            android:exported="false" />
+        <activity
+            android:name=".activity.CreateNote"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddCompanies"
+            android:exported="false" />
+        <activity
+            android:name=".activity.KeepNotes"
+            android:exported="true" />
+        <activity
+            android:name=".activity.AllFaculty"
+            android:exported="false" />
+        <activity
+            android:name=".activity.FacultyProfile"
+            android:exported="false" />
+        <activity
+            android:name=".activity.StudentProfile"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SheetActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SheeListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.StudentAttandenceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AttendanceTaking"
+            android:exported="false" />
+        <activity
+            android:name=".activity.NoticeScreen"
+            android:exported="false" />
+        <activity
+            android:name=".activity.FacultySignInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.FacultySignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.StudentSignInScreen"
+            android:exported="false" />
+        <activity
+            android:name=".activity.OtpVerificaiton"
+            android:exported="false" />
+        <activity
+            android:name=".activity.TopZone"
+            android:exported="false" />
+        <activity
+            android:name=".activity.CampusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.PaperActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.FeesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.HomeScreen"
+            android:exported="false" />
+        <activity
+            android:name=".activity.StudentSignUpScreen"
+            android:exported="false" />
+        <activity
+            android:name=".activity.FrontScreen"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SplashScreen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

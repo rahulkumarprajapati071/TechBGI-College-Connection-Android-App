@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_54sdp"
+    android:id="@+id/cardview"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="@dimen/_6sdp"
+    android:layout_marginRight="@dimen/_6sdp"
+    android:layout_marginTop="@dimen/_6sdp"
+    app:cardUseCompatPadding="false"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="false"
+    app:cardCornerRadius="@dimen/_4sdp">
+
+    <RelativeLayout
+        android:paddingLeft="@dimen/_2sdp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_9sdp">
+            <TextView
+                android:id="@+id/rollNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="01"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sdp"/>
+            <TextView
+                android:id="@+id/studentName"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rahul Kumar"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sdp"/>
+            <TextView
+                android:id="@+id/status"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="P"
+                android:layout_alignParentRight="true"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sdp"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

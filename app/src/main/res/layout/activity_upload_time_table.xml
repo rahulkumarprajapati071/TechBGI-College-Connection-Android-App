@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lite_blue"
+    tools:context=".activity.UploadTimeTable">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:src="@drawable/timetable"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_70sdp"/>
+
+        <TextView
+            android:id="@+id/tx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set Time Table"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/_25sdp"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_gravity="center"/>
+
+        <Spinner
+            android:id="@+id/semestertime"
+            android:layout_width="@dimen/_230sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/style_spinner"
+            android:layout_marginTop="@dimen/_20sdp"/>
+
+        <Spinner
+            android:id="@+id/branchtime"
+            android:layout_width="@dimen/_230sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/style_spinner"
+            android:layout_marginTop="@dimen/_10sdp"/>
+
+        <ImageView
+            android:id="@+id/timetable"
+            android:layout_width="@dimen/_230sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_add_black_24dp"
+            android:background="@drawable/noticebackground"
+            android:layout_marginTop="@dimen/_10sdp"/>
+
+        <View
+            android:id="@+id/v"
+            android:layout_width="@dimen/_230sdp"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/grey"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/bc"
+            android:layout_width="@dimen/_230sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Choose Files"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:background="@drawable/noticebackground"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/upload"
+            android:layout_width="@dimen/_230sdp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/abhayalibrebold"
+            android:text="Upload"
+            android:textSize="@dimen/_15ssp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_gravity="center"
+            android:shadowColor="@color/black"
+            android:shadowDx="4"
+            android:shadowDy="5"
+            android:shadowRadius="4"
+            android:elevation="@dimen/_10sdp"
+            android:background="@drawable/front_button"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

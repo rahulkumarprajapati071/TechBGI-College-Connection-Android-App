@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lite_blue"
+    tools:context=".activity.OtpVerificaiton">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_120sdp"
+            android:src="@drawable/bgilogo"
+            android:layout_marginTop="@dimen/_90sdp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="OTP Verification"
+            android:textSize="@dimen/_20ssp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please Enter the OTP sent to you"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textColor="@color/dark_grey"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="@dimen/_15sdp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/showmobilenumber"
+            android:layout_marginStart="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_50sdp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_20sdp">
+
+            <EditText
+                android:id="@+id/input_1"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_46sdp"
+                android:gravity="center"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:background="@drawable/backgrounbox"
+                android:maxLength="1"
+                android:textStyle="bold"
+                android:textSize="@dimen/_24sdp"
+                android:textColor="@color/black"/>
+            <EditText
+                android:id="@+id/input_2"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_46sdp"
+                android:gravity="center"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:background="@drawable/backgrounbox"
+                android:maxLength="1"
+                android:textStyle="bold"
+                android:textSize="@dimen/_24sdp"
+                android:textColor="@color/black"/>
+            <EditText
+                android:id="@+id/input_3"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_46sdp"
+                android:gravity="center"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:background="@drawable/backgrounbox"
+                android:maxLength="1"
+                android:textStyle="bold"
+                android:textSize="@dimen/_24sdp"
+                android:textColor="@color/black"/>
+            <EditText
+                android:id="@+id/input_4"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_46sdp"
+                android:gravity="center"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:background="@drawable/backgrounbox"
+                android:maxLength="1"
+                android:textStyle="bold"
+                android:textSize="@dimen/_24sdp"
+                android:textColor="@color/black"/>
+            <EditText
+                android:id="@+id/input_5"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_46sdp"
+                android:gravity="center"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:background="@drawable/backgrounbox"
+                android:maxLength="1"
+                android:textStyle="bold"
+                android:textSize="@dimen/_24sdp"
+                android:textColor="@color/black"/>
+            <EditText
+                android:id="@+id/input_6"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_46sdp"
+                android:gravity="center"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:background="@drawable/backgrounbox"
+                android:maxLength="1"
+                android:textStyle="bold"
+                android:textSize="@dimen/_24sdp"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/_14sdp"
+                android:text="@string/didn_t_receive_the_otp"/>
+
+            <TextView
+                android:id="@+id/resendotp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Resend OTP"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:textStyle="bold"
+                android:textSize="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_2sdp"/>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/submitButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:layout_margin="@dimen/_30sdp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:background="@drawable/backbutton"/>
+
+            <ProgressBar
+                android:id="@+id/progressbar_submit_button"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:visibility="gone"
+                android:layout_gravity="center"/>
+
+        </FrameLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+
+</ScrollView>

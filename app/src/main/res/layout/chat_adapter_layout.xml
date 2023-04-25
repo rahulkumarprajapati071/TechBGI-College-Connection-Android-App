@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/oppoLayout"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_50sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/oppoMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#393838"
+                android:background="@drawable/opo_msg_back"
+                android:padding="@dimen/_10sdp"
+                android:text="this is opponent message"/>
+
+            <TextView
+                android:id="@+id/oppoMsgTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_20sdp"
+                android:text="10-08-2021 05:12 PM"/>
+
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_alignParentEnd="true"
+            android:orientation="vertical"
+            android:id="@+id/myLayout"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_50sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/myMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#555151"
+                android:background="@drawable/my_msg_back"
+                android:padding="@dimen/_10sdp"
+                android:text="this is my message"/>
+
+            <TextView
+                android:layout_gravity="end"
+                android:id="@+id/myMsgTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_20sdp"
+                android:text="10-08-2021 05:12 PM"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
