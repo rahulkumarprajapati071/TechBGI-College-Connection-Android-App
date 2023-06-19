@@ -1,16 +1,12 @@
 package com.example.techbgi.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.view.WindowManager;
 
 import com.example.techbgi.R;
-import com.example.techbgi.activity.fullscreen.BaseActivity;
+import com.example.techbgi.fullscreen.BaseActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashScreen extends BaseActivity {

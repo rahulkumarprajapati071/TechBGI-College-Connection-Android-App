@@ -25,7 +25,7 @@
             android:textStyle="bold"
             android:textSize="@dimen/_15ssp"
             android:background="@drawable/signup"
-            android:hint="enter num of test"
+            android:hint="please specify which???"
             android:padding="@dimen/_8sdp"
             android:inputType="number"
             android:layout_marginLeft="@dimen/_30sdp"

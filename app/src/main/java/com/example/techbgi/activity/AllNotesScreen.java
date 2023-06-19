@@ -14,29 +14,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.techbgi.R;
-import com.example.techbgi.activity.fullscreen.BaseActivity;
 import com.example.techbgi.adapter.NotesAdapter;
 import com.example.techbgi.model.NotesModel;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class AllNotesScreen extends AppCompatActivity {
+public class AllNotesScreen extends AppCompatActivity{
 
     NotesAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_notes_screen);
-
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-        }
 
         Toolbar toolbar = findViewById(R.id.attentoolbar);
         TextView title = toolbar.findViewById(R.id.title_toolbar);

@@ -2,26 +2,20 @@ package com.example.techbgi.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.techbgi.R;
-import com.example.techbgi.activity.fullscreen.BaseActivity;
+import com.example.techbgi.fullscreen.BaseActivity;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -32,9 +26,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class FacultySignUpActivity extends BaseActivity {
@@ -45,7 +36,6 @@ public class FacultySignUpActivity extends BaseActivity {
     TextView signInDirect;
     ImageView profileImage;
     Uri imageUri;
-
     FirebaseDatabase database;
     DatabaseReference reference;
 
@@ -115,39 +105,14 @@ public class FacultySignUpActivity extends BaseActivity {
                 }
                 else{
 
-                    reference.child("faculty").addListenerForSingleValueEvent(new ValueEventListener() {
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.hasChild(mobileNumberString)){
+                            if(snapshot.child("students").hasChild(mobileNumberString) || snapshot.child("faculty").hasChild(mobileNumberString)){
                                 dialog.dismiss();
                                 Toast.makeText(FacultySignUpActivity.this, "Phone number is already registered", Toast.LENGTH_SHORT).show();
                             }else{
-
-                                FirebaseAuth auth = FirebaseAuth.getInstance();
-                                if(auth.getCurrentUser() != null)
-                                {
-                                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if(snapshot.child("students").hasChild(mobileNumberString)){
-                                                dialog.dismiss();
-                                                Toast.makeText(FacultySignUpActivity.this, "Phone number is already registered", Toast.LENGTH_SHORT).show();
-                                            }else{
-                                                allProcessOfOTPVerification();
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-                                            dialog.dismiss();
-                                            Toast.makeText(FacultySignUpActivity.this, "Check Internet Connection", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
-                                else
-                                {
                                     allProcessOfOTPVerification();
-                                }
 
                             }
                         }
@@ -195,6 +160,7 @@ public class FacultySignUpActivity extends BaseActivity {
                             intent.putExtra("imageUri", image);
                         }
                         intent.putExtra("flag","1");
+                        intent.putExtra("previous","signup");
                         startActivity(intent);
                     }
                 }

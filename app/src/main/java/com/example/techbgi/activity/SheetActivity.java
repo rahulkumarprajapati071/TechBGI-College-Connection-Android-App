@@ -6,20 +6,15 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.techbgi.R;
-import com.example.techbgi.activity.fullscreen.BaseActivity;
-import com.example.techbgi.model.StudentItem;
+import com.example.techbgi.database.DbHelper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

@@ -4,13 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.view.WindowManager;
 
 import com.example.techbgi.R;
-import com.example.techbgi.activity.fullscreen.BaseActivity;
 import com.example.techbgi.adapter.VPAdapter;
 import com.example.techbgi.adapter.ViewPaggerItem;
 

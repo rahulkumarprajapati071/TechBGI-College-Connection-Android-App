@@ -2,27 +2,24 @@ package com.example.techbgi.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.techbgi.R;
-import com.example.techbgi.activity.fullscreen.BaseActivity;
+import com.example.techbgi.fullscreen.BaseActivity;
+import com.example.techbgi.sharedsession.SharedPreferenceSession;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -35,7 +32,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class StudentSignUpScreen extends BaseActivity {
@@ -49,6 +45,8 @@ public class StudentSignUpScreen extends BaseActivity {
 
     FirebaseDatabase database;
     DatabaseReference reference;
+
+    SharedPreferenceSession session;
 
     Uri imageUri;
 
@@ -68,6 +66,11 @@ public class StudentSignUpScreen extends BaseActivity {
         dialog.setMessage("Please wait...");
         semester = findViewById(R.id.semester);
         branch = findViewById(R.id.branch);
+        session = new SharedPreferenceSession(this);
+
+//        if(session.getWho().equals()){
+//
+//        }
 
         String[] valueSem = {"Current Semester","1","2","3","4","5","6","7","8"};
         ArrayList<String> arrayList2 = new ArrayList<>(Arrays.asList(valueSem));
@@ -128,37 +131,11 @@ public class StudentSignUpScreen extends BaseActivity {
                     reference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.child("students").hasChild(mobileNumberString)){
+                            if(snapshot.child("students").hasChild(mobileNumberString) || snapshot.child("faculty").hasChild(mobileNumberString)){
                                 dialog.dismiss();
                                 Toast.makeText(StudentSignUpScreen.this, "Phone number is already registered", Toast.LENGTH_SHORT).show();
                             }else{
-
-                                FirebaseAuth auth = FirebaseAuth.getInstance();
-                                if(auth.getCurrentUser() != null)
-                                {
-                                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if(snapshot.child("faculty").hasChild(mobileNumberString)){
-                                                dialog.dismiss();
-                                                Toast.makeText(StudentSignUpScreen.this, "Phone number is already registered", Toast.LENGTH_SHORT).show();
-                                            }else{
-                                                allProcessOfOTPVerification();
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-                                            dialog.dismiss();
-                                            Toast.makeText(StudentSignUpScreen.this, "Check Internet Connection", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
-                                else
-                                {
-                                    allProcessOfOTPVerification();
-                                }
-
+                                allProcessOfOTPVerification();
                             }
                         }
 
@@ -207,6 +184,7 @@ public class StudentSignUpScreen extends BaseActivity {
                         }
                         intent.putExtra("otp",backendOtp);
                         intent.putExtra("flag","0");
+                        intent.putExtra("previous","signup");
                         startActivity(intent);
                     }
                 }

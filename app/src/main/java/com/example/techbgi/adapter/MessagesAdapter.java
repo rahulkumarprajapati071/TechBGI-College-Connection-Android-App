@@ -1,14 +1,12 @@
 package com.example.techbgi.adapter;
 
+import static com.example.techbgi.activity.MessageActivity.recImage;
+import static com.example.techbgi.activity.MessageActivity.senderImage;
+
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,87 +14,94 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.techbgi.R;
-import com.example.techbgi.chat.ChatActivity;
-import com.example.techbgi.model.MessagesList;
+import com.example.techbgi.model.MessageMember;
+import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyViewHolder>  {
+public class MessagesAdapter extends RecyclerView.Adapter {
 
-    private List<MessagesList> messagesList;
-    private final Context context;
+    Context context;
+    ArrayList<MessageMember> messagesArrayList;
+    int ITEM_SEND = 1;
+    int ITEM_RECEIVE = 2;
 
-    public MessagesAdapter(List<MessagesList> messagesList, Context context) {
-        this.messagesList = messagesList;
+    public MessagesAdapter(Context context, ArrayList<MessageMember> messagesArrayList) {
         this.context = context;
+        this.messagesArrayList = messagesArrayList;
     }
 
     @NonNull
     @Override
-    public MessagesAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.messages_adapter_layout,null));
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if(viewType == ITEM_SEND)
+        {
+            View view = LayoutInflater.from(context).inflate(R.layout.sender_layout_item,parent,false);
+            return new SenderViewHolder(view);
+        }else{
+            View view = LayoutInflater.from(context).inflate(R.layout.receiver_layout_item,parent,false);
+            return new ReciverViewHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MessagesAdapter.MyViewHolder holder, int position) {
-        MessagesList list2 = messagesList.get(position);
-
-        if(!list2.getProfilePic().isEmpty())
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        MessageMember messages = messagesArrayList.get(position);
+        if(holder.getClass() == SenderViewHolder.class)
         {
-            Glide.with(holder.profilePic.getContext()).load(list2.getProfilePic()).into(holder.profilePic);
-        }
+            SenderViewHolder viewHolder = (SenderViewHolder)holder;
+            viewHolder.txtMessages.setText(messages.getMessage());
 
-        holder.name.setText(list2.getName());
-        holder.lastMessage.setText(list2.getLastMessage());
-
-        if(list2.getUnseenMessages() == 0){
-            holder.unseenMessages.setVisibility(View.GONE);
-            holder.unseenMessages.setTextColor(Color.parseColor("#959595"));
+            Glide.with(viewHolder.circleImageView).load(senderImage).into(viewHolder.circleImageView);
+//            Picasso.get().load(senderImage).into(viewHolder.circleImageView);
         }else{
-            holder.unseenMessages.setVisibility(View.VISIBLE);
-            holder.unseenMessages.setText(list2.getUnseenMessages()+"");
-            holder.lastMessage.setTextColor(context.getResources().getColor(R.color.blue_college));
+            ReciverViewHolder viewHolder = (ReciverViewHolder) holder;
+            viewHolder.txtMessages.setText(messages.getMessage());
+
+            Glide.with(viewHolder.circleImageView).load(recImage).into(viewHolder.circleImageView);
+
         }
-
-        holder.rootLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ChatActivity.class);
-                intent.putExtra("mobile",list2.getMobile());
-                intent.putExtra("name",list2.getName());
-                intent.putExtra("profile_pic",list2.getProfilePic());
-                intent.putExtra("chat_key",list2.getChatkey());
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            }
-        });
-    }
-
-    public void updateData(List<MessagesList> messagesList){
-        this.messagesList = messagesList;
-        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return messagesList.size();
+        return messagesArrayList.size();
     }
 
-    static class MyViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public int getItemViewType(int position) {
+        MessageMember messages = messagesArrayList.get(position);
+        if(FirebaseAuth.getInstance().getCurrentUser().getUid().equals(messages.getSenderuid()))
+        {
+            return  ITEM_SEND;
+        }else{
+            return ITEM_RECEIVE;
+        }
+    }
 
-        private CircleImageView profilePic;
-        private TextView name,lastMessage,unseenMessages;
-        private LinearLayout rootLayout;
-        public MyViewHolder(@NonNull View itemView) {
+    class SenderViewHolder extends RecyclerView.ViewHolder {
+
+        CircleImageView circleImageView;
+        TextView txtMessages;
+
+        public SenderViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            profilePic = itemView.findViewById(R.id.profilePic);
-            name = itemView.findViewById(R.id.name);
-            lastMessage = itemView.findViewById(R.id.lastMessage);
-            unseenMessages = itemView.findViewById(R.id.unseenMessages);
-            rootLayout = itemView.findViewById(R.id.rootLayout);
+            circleImageView = itemView.findViewById(R.id.profile_image);
+            txtMessages = itemView.findViewById(R.id.textMessages);
+        }
+    }
+    // yaah ruk jao ya akhaa hai
+    class ReciverViewHolder extends RecyclerView.ViewHolder {
+        CircleImageView circleImageView;
+        TextView txtMessages;
+        public ReciverViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            circleImageView = itemView.findViewById(R.id.profile_image);
+            txtMessages = itemView.findViewById(R.id.textMessages);
         }
     }
 }

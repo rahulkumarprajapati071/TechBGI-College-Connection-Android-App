@@ -1,4 +1,4 @@
-package com.example.techbgi.activity.fullscreen;
+package com.example.techbgi.fullscreen;
 
 import android.os.Build;
 import android.view.View;

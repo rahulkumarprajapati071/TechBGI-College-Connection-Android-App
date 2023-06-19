@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -22,7 +23,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.techbgi.R;
-import com.example.techbgi.chat.ChatActivity;
+import com.example.techbgi.model.FacultyRegistrationModel;
+import com.example.techbgi.model.TestResultModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class AllFacultyDescription extends Fragment {
 
@@ -32,7 +39,9 @@ public class AllFacultyDescription extends Fragment {
     private String mParam1;
     private String mParam2;
     private Button callfaculty,chatfaculty;
-    String name,phone, imageUrl;
+    DatabaseReference reference;
+    String name,phone, imageUrl,uid;
+    private TextView firstName,lastName,specialization,experience,status,email,mobile;
 
     public AllFacultyDescription() {
     }
@@ -71,16 +80,40 @@ public class AllFacultyDescription extends Fragment {
         ImageButton back = toolbar.findViewById(R.id.back);
         ImageButton save = toolbar.findViewById(R.id.save);
 
-        title.setText("Faculty Details");
+        title.setText("Profile");
         subtitle.setVisibility(View.GONE);
         back.setVisibility(View.INVISIBLE);
         save.setVisibility(View.INVISIBLE);
 
         ImageView imageholder = view.findViewById(R.id.imageholder);
-        TextView nameholder = view.findViewById(R.id.nameholder);
-        TextView mobholder = view.findViewById(R.id.mobholder);
+        firstName = view.findViewById(R.id.firstName);
+        lastName = view.findViewById(R.id.lastName);
+        specialization = view.findViewById(R.id.spec);
+        experience = view.findViewById(R.id.exp);
+        status = view.findViewById(R.id.status);
+        mobile = view.findViewById(R.id.phone);
+        email = view.findViewById(R.id.email);
         callfaculty = view.findViewById(R.id.callfaculty);
         chatfaculty = view.findViewById(R.id.chatfaculty);
+
+
+        reference = FirebaseDatabase.getInstance().getReference().child("faculty");
+        reference.child(phone).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                FacultyRegistrationModel data = snapshot.getValue(FacultyRegistrationModel.class);
+                uid = data.getUid();
+                setDetails(data.getEmail(),data.getExperience(),data.getFirstName(),data.getLastName(),data.getPhoneNumber(),data.getStatus(),data.getSpecialization());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
 
         callfaculty.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,20 +132,27 @@ public class AllFacultyDescription extends Fragment {
         chatfaculty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ChatActivity.class);
-                intent.putExtra("mobile",phone);
+                Intent intent = new Intent(getContext(),MessageActivity.class);
                 intent.putExtra("name",name);
-                intent.putExtra("profile_pic",imageUrl);
+                intent.putExtra("url",imageUrl);
+                intent.putExtra("uid",uid);
                 startActivity(intent);
             }
         });
-
-
-        nameholder.setText(name);
-        mobholder.setText(phone);
         Glide.with(getContext()).load(imageUrl).into(imageholder);
         return  view;
     }
+
+    private void setDetails(String emailg, String exp, String first, String last, String phoneNumber, String sts, String spec) {
+        firstName.setText(first);
+        lastName.setText(last);
+        specialization.setText(spec);
+        experience.setText(exp);
+        email.setText(emailg);
+        mobile.setText(phoneNumber);
+        status.setText(sts);
+    }
+
     public void onBackPressed(){
         AppCompatActivity activity = (AppCompatActivity)getContext();
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.wrapper,new AllFacultyFragment()).addToBackStack(null).commit();

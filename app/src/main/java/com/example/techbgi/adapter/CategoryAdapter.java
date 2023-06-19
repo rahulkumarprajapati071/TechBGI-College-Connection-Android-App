@@ -23,6 +23,7 @@ import com.example.techbgi.activity.KeepNotes;
 import com.example.techbgi.activity.NoticePage;
 import com.example.techbgi.activity.PaperActivity;
 import com.example.techbgi.activity.StudentAttandanceSearch;
+import com.example.techbgi.activity.TestRoom;
 import com.example.techbgi.activity.TopZone;
 import com.example.techbgi.activity.UploadNotesFaculty;
 import com.example.techbgi.activity.UploadTimeTable;
@@ -93,7 +94,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                         context.startActivity(intent1);
                         break;
                     case 11:
-                        openAptitude();
+                        context.startActivity(new Intent(context, TestRoom.class));
                         break;
                     case 12:
                         openMap();

@@ -1,25 +1,20 @@
 package com.example.techbgi.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.techbgi.R;
-import com.example.techbgi.activity.fullscreen.BaseActivity;
-import com.example.techbgi.model.StudentModel;
+import com.example.techbgi.fullscreen.BaseActivity;
+import com.example.techbgi.model.StudentRegistrationModel;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +31,7 @@ public class StudentSignInScreen extends BaseActivity {
     Button signInButton;
     TextView signUp,forgotPassword;
     ProgressDialog dialog;
+
     private FirebaseDatabase database;
     private DatabaseReference reference;
 
@@ -90,7 +86,7 @@ public class StudentSignInScreen extends BaseActivity {
                                 reference.child("students").child(mobileNumber.getText().toString()).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        StudentModel realData = snapshot.getValue(StudentModel.class);
+                                        StudentRegistrationModel realData = snapshot.getValue(StudentRegistrationModel.class);
                                         assert realData != null;
                                         String pass = realData.getPassword();
                                         if(!passwordString.equals(pass)){
@@ -98,11 +94,7 @@ public class StudentSignInScreen extends BaseActivity {
                                             Toast.makeText(StudentSignInScreen.this, "Please enter correct password", Toast.LENGTH_SHORT).show();
                                         }else{
                                             dialog.dismiss();
-                                            Intent intent = new Intent(getApplicationContext(),HomeScreen.class);
-                                            intent.putExtra("mobile",mobileNumber.getText().toString());
-                                            intent.putExtra("flag","students");
-                                            startActivity(intent);
-                                            finish();
+                                            allProcessOfOTPVerification();
                                         }
                                     }
 
@@ -127,6 +119,36 @@ public class StudentSignInScreen extends BaseActivity {
             }
         });
 
+    }
+
+    private void allProcessOfOTPVerification() {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                "+91" + mobileNumber.getText().toString(),
+                20, TimeUnit.SECONDS, StudentSignInScreen.this,
+                new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                    @Override
+                    public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                    }
+
+                    @Override
+                    public void onVerificationFailed(@NonNull FirebaseException e) {
+                        dialog.dismiss();
+                        Toast.makeText(StudentSignInScreen.this, "Enter valid mobile number", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCodeSent(@NonNull String backendOtp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                        dialog.dismiss();
+
+                        Intent intent = new Intent(getApplicationContext(),OtpVerificaiton.class);
+                        intent.putExtra("mobile",mobileNumber.getText().toString().trim());
+                        intent.putExtra("otp",backendOtp);
+                        intent.putExtra("flag","0");
+                        intent.putExtra("previous","signin");
+                        startActivity(intent);
+                    }
+                }
+        );
     }
 
 }

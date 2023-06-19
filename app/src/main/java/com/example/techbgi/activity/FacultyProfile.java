@@ -2,15 +2,16 @@ package com.example.techbgi.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,9 +20,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.techbgi.R;
-import com.example.techbgi.activity.fullscreen.BaseActivity;
+import com.example.techbgi.fullscreen.BaseActivity;
+import com.example.techbgi.model.All_UserMmber;
 import com.example.techbgi.model.FacultyRegistrationModel;
-import com.example.techbgi.model.StudentRegistrationModel;
+import com.example.techbgi.sharedsession.SharedPreferenceSession;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -38,14 +40,15 @@ import com.google.firebase.storage.UploadTask;
 import java.util.Objects;
 
 public class FacultyProfile extends BaseActivity {
-    EditText firstName,lastName,phone;
-    TextView collegeId,username,change;
-    Button updateBtn;
+    EditText firstName,lastName,status,spec,exp,email;
+    TextView collegeId,username,change,phone;
+    Button updateBtn,logoutBtn,deleteBtn;
     ImageView profileImage,back;
     Uri imageUri;
     private String pass;
     String imageUrl;
     String image;
+    SharedPreferenceSession session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +58,11 @@ public class FacultyProfile extends BaseActivity {
 
         setContentView(R.layout.activity_faculty_profile);
 
+        session = new SharedPreferenceSession(this);
+
         findId();
+
+
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.password_change_dialog);
         dialog.setCancelable(false);
@@ -69,6 +76,10 @@ public class FacultyProfile extends BaseActivity {
                 String password = snapshot.child("password").getValue(String.class);
                 String phone1 = snapshot.child("phoneNumber").getValue(String.class);
                 String collgeid = snapshot.child("collegeId").getValue(String.class);
+                String status1 = snapshot.child("status").getValue(String.class);
+                String specialization = snapshot.child("specialization").getValue(String.class);
+                String experience = snapshot.child("experience").getValue(String.class);
+                String email1 = snapshot.child("email").getValue(String.class);
 
                 Glide.with(getApplicationContext()).load(image).into(profileImage);
                 collegeId.setText(collgeid);
@@ -77,6 +88,10 @@ public class FacultyProfile extends BaseActivity {
                 phone.setText(phone1);
                 username.setText(firstname+" "+lastname);
                 pass = password;
+                status.setText(status1 == null?"Asst.Professor":status1);
+                spec.setText(specialization == null?"Opto Electronics":specialization);
+                exp.setText(experience == null?"11 Years":experience);
+                email.setText(email1==null?"jayesh.joshi@sdbc.ac.in":email1);
             }
 
             @Override
@@ -118,7 +133,9 @@ public class FacultyProfile extends BaseActivity {
                                     public void onSuccess(Uri uri) {
 
                                         imageUrl = uri.toString();
-                                        FacultyRegistrationModel facultyRegistrationModel = new FacultyRegistrationModel(firstName.getText().toString(),lastName.getText().toString(),pass,collegeId.getText().toString(),phone.getText().toString(),imageUrl);
+                                        FacultyRegistrationModel facultyRegistrationModel = new FacultyRegistrationModel(firstName.getText().toString(),FirebaseAuth.getInstance().getUid(),lastName.getText().toString(),pass,collegeId.getText().toString(),phone.getText().toString(),imageUrl,spec.getText().toString(),email.getText().toString(),exp.getText().toString(),status.getText().toString());
+                                        All_UserMmber all_userMmber = new All_UserMmber(firstName.getText().toString()+" "+lastName.getText().toString(), FirebaseAuth.getInstance().getUid(),imageUrl);
+                                        reference.child("All Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).setValue(all_userMmber);
                                         reference.child("faculty").child(phone.getText().toString()).setValue(facultyRegistrationModel);
                                     }
                                 });
@@ -126,9 +143,53 @@ public class FacultyProfile extends BaseActivity {
                         }
                     });
                 }else{
-                    FacultyRegistrationModel facultyRegistrationModel = new FacultyRegistrationModel(firstName.getText().toString(),lastName.getText().toString(),pass,collegeId.getText().toString(),phone.getText().toString(),image);
+                    FacultyRegistrationModel facultyRegistrationModel = new FacultyRegistrationModel(firstName.getText().toString(),FirebaseAuth.getInstance().getUid(),lastName.getText().toString(),pass,collegeId.getText().toString(),phone.getText().toString(),image,spec.getText().toString(),email.getText().toString(),exp.getText().toString(),status.getText().toString());
+                    All_UserMmber all_userMmber = new All_UserMmber(firstName.getText().toString()+" "+lastName.getText().toString(), FirebaseAuth.getInstance().getUid(),image);
+                    reference.child("All Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).setValue(all_userMmber);
                     reference.child("faculty").child(phone.getText().toString()).setValue(facultyRegistrationModel);
                 }
+                Toast.makeText(FacultyProfile.this, "Profile Successfuly Updated", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Show confirmation dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(FacultyProfile.this);
+                builder.setTitle("Confirm Deletion");
+                builder.setMessage("Are you sure you want to delete your account?");
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent arguments = new Intent(getApplicationContext(), DeleteAccountVerification.class);
+                        arguments.putExtra("mobileNumber", phone.getText().toString());
+                        arguments.putExtra("flag", "1");
+                        startActivity(arguments);
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+                builder.show();
+            }
+        });
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(FacultyProfile.this);
+                builder.setTitle("Confirm Logout");
+                builder.setMessage("Are you sure you want to logout?");
+                builder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(FacultyProfile.this, "LOGOUT", Toast.LENGTH_SHORT).show();
+                        session.setWho("none");
+                        startActivity(new Intent(getApplicationContext(), FrontScreen.class));
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+                builder.show();
             }
         });
 
@@ -159,7 +220,6 @@ public class FacultyProfile extends BaseActivity {
                                 if(Objects.requireNonNull(snapshot.child("faculty").child(getIntent().getStringExtra("mobile")).child("password").getValue()).toString().equals(curpass.getText().toString())){
                                     if(newpass.getText().toString().equals(repass.getText().toString())){
                                         reference.child("faculty").child(getIntent().getStringExtra("mobile")).child("password").setValue(pass);
-                                        pass = newpass.getText().toString();
                                         dialog.dismiss();
                                     }else{
                                         Toast.makeText(FacultyProfile.this, "Confirm password not matching", Toast.LENGTH_SHORT).show();
@@ -179,6 +239,8 @@ public class FacultyProfile extends BaseActivity {
             }
         });
     }
+
+
     public void findId()
     {
         profileImage = findViewById(R.id.profile_image);
@@ -186,11 +248,16 @@ public class FacultyProfile extends BaseActivity {
         lastName = findViewById(R.id.lastName);
         collegeId = findViewById(R.id.collegeId);
         updateBtn = findViewById(R.id.updateBtn);
-        phone = findViewById(R.id.phone);
-        phone.setEnabled(false);
+        phone = findViewById(R.id.mobile);
+        status = findViewById(R.id.status);
+        email = findViewById(R.id.email);
+        exp = findViewById(R.id.exp);
+        spec = findViewById(R.id.spec);
         username = findViewById(R.id.username);
         change = findViewById(R.id.password);
         back = findViewById(R.id.back);
+        logoutBtn = findViewById(R.id.logout);
+        deleteBtn = findViewById(R.id.delete);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

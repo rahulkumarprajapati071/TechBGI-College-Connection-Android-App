@@ -4,14 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,11 +17,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.techbgi.R;
-import com.example.techbgi.activity.fullscreen.BaseActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -32,11 +27,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class SelectNotes extends AppCompatActivity {
 
@@ -46,6 +39,7 @@ public class SelectNotes extends AppCompatActivity {
     ImageView notesPreview;
     private Uri pdfData;
     private String pdfName;
+    ProgressDialog dialog;
 
     private final DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://techbgi-default-rtdb.firebaseio.com/");
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
@@ -64,6 +58,10 @@ public class SelectNotes extends AppCompatActivity {
         uploadButton = findViewById(R.id.uploadButton);
         notesPreview = findViewById(R.id.notesPreview);
 
+        dialog = new ProgressDialog(this);
+
+        dialog.setMessage("Please wait...");
+
         String[] valueSem = {"Current Semester","1","2","3","4","5","6","7","8"};
         ArrayList<String> arrayList2 = new ArrayList<>(Arrays.asList(valueSem));
         ArrayAdapter<String> arrayAdapter2 = new ArrayAdapter<>(this,R.layout.style_textspinner,arrayList2);
@@ -78,7 +76,9 @@ public class SelectNotes extends AppCompatActivity {
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.show();
                 if(pdfData == null || firstName.getText().toString().trim().isEmpty() || lastName.getText().toString().trim().isEmpty() || semester.getSelectedItemId() == 0 || semester.getSelectedItemId() == 0 || subject.getText().toString().trim().isEmpty()){
+                    dialog.dismiss();
                     Toast.makeText(SelectNotes.this, "Please fill all requirements", Toast.LENGTH_SHORT).show();
                 }else{
                     StorageReference reference1 = storageReference.child("NotesPdf/"+pdfName+"-"+System.currentTimeMillis()+".pdf");
@@ -93,6 +93,7 @@ public class SelectNotes extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            dialog.dismiss();
                             Toast.makeText(SelectNotes.this, "something went wrong", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -115,13 +116,14 @@ public class SelectNotes extends AppCompatActivity {
                 reference.child("Notes").child(semesterString+branchString).child(uniqueKey).setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
+                        dialog.dismiss();
                         Toast.makeText(SelectNotes.this, "Notes Added succesfuly", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(),UploadNotesFaculty.class));
                         finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        dialog.dismiss();
                         Toast.makeText(SelectNotes.this, "Failed to upload Notes", Toast.LENGTH_SHORT).show();
                     }
                 });

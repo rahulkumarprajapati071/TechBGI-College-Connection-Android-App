@@ -3,10 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.techbgi">
 
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +23,46 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TechBGI"
         tools:targetApi="31">
+        <service
+            android:name=".database.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <activity
+            android:name=".activity.DeleteAccountVerification"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MessageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.TestResultList"
+            android:exported="false" />
+        <activity
+            android:name=".activity.TestScorePage"
+            android:exported="false" />
+        <activity
+            android:name=".activity.TestQuestionsScreen"
+            android:exported="false" />
+        <activity
+            android:name=".activity.FrontQuizDetails"
+            android:exported="false" />
+        <activity
+            android:name=".activity.QuestionsList"
+            android:exported="false" />
+        <activity
+            android:name=".activity.QuestionsAdding"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddQuestions"
+            android:exported="false" />
+        <activity
+            android:name=".activity.TestRoom"
+            android:exported="false" />
         <activity
             android:name=".activity.SuggestionActivity"
             android:exported="false" />
@@ -52,13 +98,6 @@
             android:exported="false" />
         <activity
             android:name=".activity.ForgotPasswordScreen"
-            android:exported="false" />
-        <activity
-            android:name=".chat.ChatActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize"></activity>
-        <activity
-            android:name=".activity.MessageActivity"
             android:exported="false" />
         <activity
             android:name=".activity.MarksOfStudentActivity"

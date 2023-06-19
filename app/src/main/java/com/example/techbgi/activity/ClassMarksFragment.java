@@ -17,7 +17,11 @@ import com.example.techbgi.adapter.CompanyAdapter;
 import com.example.techbgi.model.ClassItem;
 import com.example.techbgi.model.CompanyModel;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Objects;
 
 public class ClassMarksFragment extends Fragment {
 
@@ -58,15 +62,12 @@ public class ClassMarksFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_class_marks, container, false);
 
         recyclerclassmarks = (RecyclerView) view.findViewById(R.id.recyclerclassmarks);
-        TextView tx = view.findViewById(R.id.txv);
         recyclerclassmarks.setLayoutManager(new LinearLayoutManager(getContext()));
 
         FirebaseRecyclerOptions<ClassItem> options =
                 new FirebaseRecyclerOptions.Builder<ClassItem>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("classOfMarks"),ClassItem.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("classOfMarks").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())),ClassItem.class)
                         .build();
-
-
 
         adapter = new ClassMarksAdapter(options);
         recyclerclassmarks.setAdapter(adapter);

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_2sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_115sdp"
+        android:elevation="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardMaxElevation="@dimen/_5sdp"
+        android:id="@+id/questionscard">
+
+            <TextView
+                android:layout_width="@dimen/_160sdp"
+                android:layout_height="wrap_content"
+                android:text="Quanititve Apptitude"
+                android:id="@+id/subjectnameQue"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_15ssp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/itim_regular"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13/11/2001"
+                android:layout_marginLeft="@dimen/_180sdp"
+                android:textSize="@dimen/_20sdp"
+                android:textColor="@color/black"
+                android:id="@+id/date"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/itim_regular"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Semester"
+            android:textColor="@color/black"
+            android:fontFamily="@font/itim_regular"
+            android:id="@+id/semester"
+            android:layout_marginTop="@dimen/_46sdp"
+            android:textSize="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_10sdp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Branch"
+            android:textColor="@color/black"
+            android:fontFamily="@font/itim_regular"
+            android:id="@+id/branch"
+            android:textSize="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_46sdp"
+            android:layout_marginLeft="@dimen/_180sdp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="start time"
+            android:textColor="@color/black"
+            android:fontFamily="@font/itim_regular"
+            android:id="@+id/startTime"
+            android:layout_marginTop="@dimen/_80sdp"
+            android:textSize="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_10sdp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="end time"
+            android:textColor="@color/black"
+            android:fontFamily="@font/itim_regular"
+            android:id="@+id/endTime"
+            android:textSize="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_80sdp"
+            android:layout_marginLeft="@dimen/_180sdp"/>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

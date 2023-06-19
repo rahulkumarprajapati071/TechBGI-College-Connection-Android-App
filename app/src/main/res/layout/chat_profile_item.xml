@@ -2,27 +2,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:id="@+id/pro_self"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:id="@+id/rootLayout"
-        android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        app:cardCornerRadius="@dimen/_10sdp"
+        android:id="@+id/click"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:elevation="@dimen/_4sdp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profilePic"
+                android:id="@+id/imageView"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_centerVertical="true"
-                android:layout_marginTop="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:src="@drawable/adduser"
                 android:layout_marginStart="@dimen/_20sdp"/>
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -31,10 +35,10 @@
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/profilePic">
+                android:layout_toEndOf="@+id/imageView">
 
                 <TextView
-                    android:id="@+id/name"
+                    android:id="@+id/tv_name_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
@@ -43,41 +47,28 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/lastMessage"
+                    android:id="@+id/status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:maxLines="1"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:textColor="@color/blue_college"
+                    android:textColor="@color/red"
                     android:textSize="@dimen/_11sdp"
-                    android:text="This is Last Message"/>
-                
+                    android:text="status online/offlne"/>
+
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/unseenMessages"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@drawable/round_back_1000"
-                android:gravity="center"
-                android:text="1"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/_10sdp"
-                tools:ignore="TextSizeCheck" />
-
         </RelativeLayout>
-        
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:background="#14000000"/>
-        
-    </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:background="#14000000"/>
 
 </RelativeLayout>

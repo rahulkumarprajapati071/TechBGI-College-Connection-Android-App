@@ -1,27 +1,24 @@
 package com.example.techbgi.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.techbgi.R;
-import com.example.techbgi.activity.fullscreen.BaseActivity;
-import com.example.techbgi.model.StudentRegistrationModel;
+import com.example.techbgi.fullscreen.BaseActivity;
+import com.example.techbgi.model.All_UserMmber;
 import com.example.techbgi.model.FacultyRegistrationModel;
+import com.example.techbgi.sharedsession.SharedPreferenceSession;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -36,6 +33,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -51,6 +49,7 @@ public class OtpVerificaiton extends BaseActivity {
     FirebaseDatabase database;
     DatabaseReference reference;
     FirebaseStorage firebaseStorage;
+    SharedPreferenceSession session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +59,7 @@ public class OtpVerificaiton extends BaseActivity {
         firebaseStorage = FirebaseStorage.getInstance();
 
         setContentView(R.layout.activity_otp_verificaiton);
+        session = new SharedPreferenceSession(this);
 
         firstName = getIntent().getStringExtra("firstname");
         lastName = getIntent().getStringExtra("lastname");
@@ -114,39 +114,67 @@ public class OtpVerificaiton extends BaseActivity {
                                     //send data in data base in intent comes form registration screen other wise go..
                                     if(getIntent().getStringExtra("flag").equals("0"))
                                     {
-                                        if(image != null)
-                                        {
-                                            imageUri = Uri.parse(image);
-                                        }
-                                        if(imageUri != null)
-                                        {
-                                            StorageReference storageReference = firebaseStorage.getReference().child("studentImages/"+rollNumber);
-                                            storageReference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                                    if(task.isSuccessful())
-                                                    {
-                                                        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                                            @Override
-                                                            public void onSuccess(Uri uri) {
+                                        if(getIntent().getStringExtra("previous").equals("signup")){
+                                            if(image != null)
+                                            {
+                                                imageUri = Uri.parse(image);
+                                            }
+                                            if(imageUri != null)
+                                            {
+                                                StorageReference storageReference = firebaseStorage.getReference().child("studentImages/"+rollNumber);
+                                                storageReference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                                        if(task.isSuccessful())
+                                                        {
+                                                            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                                @Override
+                                                                public void onSuccess(Uri uri) {
 
-                                                                imageUrl = uri.toString();
-                                                                StudentRegistrationModel studentRegistrationModel = new StudentRegistrationModel(firstName,lastName,branch,semester,password,rollNumber,phoneNumber,imageUrl);
-
-                                                                reference.child("students").child(phoneNumber).setValue(studentRegistrationModel);
-                                                            }
-                                                        });
+                                                                    imageUrl = uri.toString();
+                                                                    HashMap data = new HashMap();
+                                                                    data.put("uid", FirebaseAuth.getInstance().getUid());
+                                                                    data.put("semester",semester);
+                                                                    data.put("branch",branch);
+                                                                    data.put("lastName",lastName);
+                                                                    data.put("firstName",firstName);
+                                                                    data.put("imageUri",imageUrl);
+                                                                    data.put("password",password);
+                                                                    data.put("phoneNumber",phoneNumber);
+                                                                    data.put("rollNumber",rollNumber);
+//                                                                StudentRegistrationModel studentRegistrationModel = new StudentRegistrationModel(firstName,lastName,branch,semester,password,rollNumber,phoneNumber,imageUrl);
+                                                                    session.setWho("0");
+                                                                    All_UserMmber all_userMmber = new All_UserMmber(firstName+" "+lastName,FirebaseAuth.getInstance().getUid(),imageUrl,phoneNumber);
+                                                                    reference.child("All Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).setValue(all_userMmber);
+                                                                    reference.child("students").child(phoneNumber).setValue(data);
+                                                                }
+                                                            });
+                                                        }
                                                     }
-                                                }
-                                            });
-                                        }else
-                                        {
-                                            imageUrl = "https://cdn-icons-png.flaticon.com/512/1057/1057240.png";
-                                            StudentRegistrationModel studentRegistrationModel = new StudentRegistrationModel(firstName,lastName,branch,semester,password,rollNumber,phoneNumber,imageUrl);
+                                                });
+                                            }else
+                                            {
+                                                imageUrl = "https://cdn-icons-png.flaticon.com/512/1057/1057240.png";
+                                                HashMap data = new HashMap();
+                                                data.put("uid", FirebaseAuth.getInstance().getUid());
+                                                data.put("semester",semester);
+                                                data.put("branch",branch);
+                                                data.put("lastName",lastName);
+                                                data.put("firstName",firstName);
+                                                data.put("imageUri",imageUrl);
+                                                data.put("password",password);
+                                                data.put("phoneNumber",phoneNumber);
+                                                data.put("rollNumber",rollNumber);
 
-                                            reference.child("students").child(phoneNumber).setValue(studentRegistrationModel);
+//                                            StudentRegistrationModel studentRegistrationModel = new StudentRegistrationModel(firstName,lastName,branch,semester,password,rollNumber,phoneNumber,imageUrl);
+                                                session.setWho("0");
+                                                All_UserMmber all_userMmber = new All_UserMmber(firstName+" "+lastName,FirebaseAuth.getInstance().getUid(),imageUrl,phoneNumber);
+                                                reference.child("All Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).setValue(all_userMmber);
+                                                reference.child("students").child(phoneNumber).setValue(data);
+                                            }
                                         }
                                         dialog.dismiss();
+                                        session.setWho("0");
                                         Intent intent = new Intent(getApplicationContext(),HomeScreen.class);
                                         intent.putExtra("flag","students");
                                         intent.putExtra("mobile",phoneNumber);
@@ -155,39 +183,47 @@ public class OtpVerificaiton extends BaseActivity {
                                         finish();
                                     }else if(getIntent().getStringExtra("flag").equals("1"))
                                     {
-                                        if(image != null)
-                                        {
-                                            imageUri = Uri.parse(image);
-                                        }
-                                        if(imageUri != null)
-                                        {
-                                            StorageReference storageReference = firebaseStorage.getReference().child("facultyImages/"+collegeId);
-                                            storageReference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                                    if(task.isSuccessful())
-                                                    {
-                                                        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                                            @Override
-                                                            public void onSuccess(Uri uri) {
+                                        if(getIntent().getStringExtra("previous").equals("signup")){
+                                            if(image != null)
+                                            {
+                                                imageUri = Uri.parse(image);
+                                            }
+                                            if(imageUri != null)
+                                            {
+                                                StorageReference storageReference = firebaseStorage.getReference().child("facultyImages/"+collegeId);
+                                                storageReference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                                        if(task.isSuccessful())
+                                                        {
+                                                            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                                @Override
+                                                                public void onSuccess(Uri uri) {
 
-                                                                imageUrl = uri.toString();
-                                                                FacultyRegistrationModel facultyRegistrationModel = new FacultyRegistrationModel(firstName,lastName,password,collegeId,phoneNumber,imageUrl);
+                                                                    imageUrl = uri.toString();
+                                                                    FacultyRegistrationModel facultyRegistrationModel = new FacultyRegistrationModel(firstName,lastName,password,collegeId,phoneNumber,imageUrl, Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
 
-                                                                reference.child("faculty").child(phoneNumber).setValue(facultyRegistrationModel);
-                                                            }
-                                                        });
+                                                                    session.setWho("1");
+                                                                    All_UserMmber all_userMmber = new All_UserMmber(firstName+" "+lastName,FirebaseAuth.getInstance().getUid(),imageUrl,phoneNumber);
+                                                                    reference.child("All Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).setValue(all_userMmber);
+                                                                    reference.child("faculty").child(phoneNumber).setValue(facultyRegistrationModel);
+                                                                }
+                                                            });
+                                                        }
                                                     }
-                                                }
-                                            });
-                                        }else
-                                        {
-                                            imageUrl = "https://cdn-icons-png.flaticon.com/512/1057/1057240.png";
-                                            FacultyRegistrationModel facultyRegistrationModel = new FacultyRegistrationModel(firstName,lastName,password,collegeId,phoneNumber,imageUrl);
-
-                                            reference.child("faculty").child(phoneNumber).setValue(facultyRegistrationModel);
+                                                });
+                                            }else
+                                            {
+                                                imageUrl = "https://cdn-icons-png.flaticon.com/512/1057/1057240.png";
+                                                FacultyRegistrationModel facultyRegistrationModel = new FacultyRegistrationModel(firstName,lastName,password,collegeId,phoneNumber,imageUrl, Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
+                                                session.setWho("1");
+                                                All_UserMmber all_userMmber = new All_UserMmber(firstName+" "+lastName,FirebaseAuth.getInstance().getUid(),imageUrl,phoneNumber);
+                                                reference.child("All Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).setValue(all_userMmber);
+                                                reference.child("faculty").child(phoneNumber).setValue(facultyRegistrationModel);
+                                            }
                                         }
                                         dialog.dismiss();
+                                        session.setWho("1");
                                         Intent intent = new Intent(getApplicationContext(),HomeScreen.class);
                                         intent.putExtra("flag","faculty");
                                         intent.putExtra("mobile",phoneNumber);
@@ -200,6 +236,7 @@ public class OtpVerificaiton extends BaseActivity {
                                         intent.putExtra("mobile",getIntent().getStringExtra("mobile"));
                                         intent.putExtra("flag",getIntent().getStringExtra("flag"));
                                         startActivity(intent);
+                                        finish();
                                     }
                                 }else{
                                     dialog.dismiss();

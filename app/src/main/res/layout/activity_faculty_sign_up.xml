@@ -89,19 +89,31 @@
                 android:padding="@dimen/_12sdp"
                 android:textColor="@color/black" />
 
-            <EditText
-                android:id="@+id/password"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordInputLayout"
                 android:layout_width="@dimen/_230sdp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:inputType="textPassword"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:background="@drawable/signup"
-                android:fontFamily="@font/robotoregular"
-                android:hint="Create Password"
-                android:minHeight="48dp"
-                android:padding="@dimen/_12sdp"
-                android:textColor="@color/black" />
+                app:passwordToggleEnabled="true"
+                app:hintEnabled="false"
+                app:boxBackgroundMode="outline">
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="@dimen/_230sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:inputType="textPassword"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/signup"
+                    android:fontFamily="@font/robotoregular"
+                    android:hint="Create Password"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/_12sdp"
+                    android:textColor="@color/black" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/signUpBtn"

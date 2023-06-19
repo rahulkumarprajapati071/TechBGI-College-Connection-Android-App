@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/frame"
     android:background="@color/lite_bgi"
     tools:context=".activity.FacultyProfile">
 
@@ -14,7 +15,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -70,8 +71,9 @@
                         android:id="@+id/username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textAlignment="center"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:text="Nick Name"
+                        android:text="Rahul Kumar"
                         android:textColor="#ffffff"
                         android:textSize="@dimen/_16sdp"
                         android:textStyle="bold"
@@ -83,20 +85,31 @@
                         android:id="@+id/collegeId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="3733IT383838"
+                        android:text="0829IT201029"
                         android:textColor="#ffffff"
                         android:textSize="@dimen/_14sdp"
                         app:layout_constraintEnd_toEndOf="@+id/username"
                         app:layout_constraintStart_toStartOf="@+id/username"
                         app:layout_constraintTop_toBottomOf="@+id/username" />
 
+                    <TextView
+                        android:id="@+id/mobile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="9179953727"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/_14sdp"
+                        app:layout_constraintEnd_toEndOf="@+id/collegeId"
+                        app:layout_constraintStart_toStartOf="@+id/collegeId"
+                        app:layout_constraintTop_toBottomOf="@+id/collegeId" />
+
                     <LinearLayout
                         android:id="@+id/linearLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_280sdp"
-                        android:layout_marginStart="@dimen/_24sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15sdp"
                         android:layout_marginTop="@dimen/_40sdp"
-                        android:layout_marginEnd="@dimen/_24sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
                         android:layout_marginBottom="@dimen/_24sdp"
                         android:background="@drawable/white_background"
                         android:elevation="@dimen/_3sdp"
@@ -108,23 +121,24 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_30sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="@dimen/_10sdp"
                                 android:text="Password:"
                                 android:textColor="@color/bgi_blue"
                                 android:textSize="@dimen/_17ssp" />
 
                             <TextView
                                 android:id="@+id/password"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_marginStart="@dimen/_5sdp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Change"
@@ -139,7 +153,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_1sdp"
-                            android:layout_margin="@dimen/_13sdp"
+                            android:layout_margin="@dimen/_10sdp"
                             android:background="#D9D9D9" />
 
                         <LinearLayout
@@ -151,18 +165,18 @@
 
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_height="match_parent"
                                 android:text="First name:"
                                 android:textColor="@color/bgi_blue"
                                 android:textSize="@dimen/_17ssp" />
 
                             <EditText
                                 android:id="@+id/firstName"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_5sdp"
                                 android:layout_weight="1"
-                                android:text="firstname"
+                                android:text="Rahul"
                                 android:background="@android:color/transparent"
                                 android:textAlignment="viewEnd"
                                 android:textColor="#5B5B5B"
@@ -173,7 +187,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_1sdp"
-                            android:layout_margin="@dimen/_13sdp"
+                            android:layout_margin="@dimen/_10sdp"
                             android:background="#D9D9D9" />
 
                         <LinearLayout
@@ -185,19 +199,19 @@
 
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_height="match_parent"
                                 android:text="Last Name:"
                                 android:textColor="@color/bgi_blue"
                                 android:textSize="@dimen/_17ssp" />
 
                             <EditText
                                 android:id="@+id/lastName"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_5sdp"
                                 android:layout_weight="1"
                                 android:background="@android:color/transparent"
-                                android:text="lastname"
+                                android:text="Kumar"
                                 android:textAlignment="viewEnd"
                                 android:textColor="#5B5B5B"
                                 android:textSize="@dimen/_17ssp" />
@@ -207,7 +221,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_1sdp"
-                            android:layout_margin="@dimen/_13sdp"
+                            android:layout_margin="@dimen/_10sdp"
                             android:background="#D9D9D9" />
 
                         <LinearLayout
@@ -219,24 +233,132 @@
 
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Phone:"
+                                android:layout_height="match_parent"
+                                android:text="Proffesion:"
                                 android:textColor="@color/bgi_blue"
                                 android:textSize="@dimen/_17ssp" />
 
                             <EditText
-                                android:id="@+id/phone"
-                                android:layout_width="wrap_content"
+                                android:id="@+id/status"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="938322939"
+                                android:text="Asst.Professor"
+                                android:layout_marginStart="@dimen/_5sdp"
                                 android:textAlignment="viewEnd"
                                 android:textColor="#5B5B5B"
                                 android:background="@android:color/transparent"
                                 android:textSize="@dimen/_17ssp" />
 
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:background="#D9D9D9" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Specialization:"
+                                android:textColor="@color/bgi_blue"
+                                android:textSize="@dimen/_17ssp" />
+
+                            <EditText
+                                android:id="@+id/spec"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"
+                                android:text="Opto Electronics"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:textAlignment="viewEnd"
+                                android:textColor="#5B5B5B"
+                                android:textSize="@dimen/_17ssp" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:background="#D9D9D9" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Experience:"
+                                android:textColor="@color/bgi_blue"
+                                android:textSize="@dimen/_17ssp" />
+
+                            <EditText
+                                android:id="@+id/exp"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"
+                                android:text="11 Years"
+                                android:textAlignment="viewEnd"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:textColor="#5B5B5B"
+                                android:textSize="@dimen/_17ssp" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:background="#D9D9D9" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Email:"
+                                android:textColor="@color/bgi_blue"
+                                android:textSize="@dimen/_17ssp" />
+
+                            <EditText
+                                android:id="@+id/email"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"
+                                android:text="jayesh.joshi@sdbc.ac.in"
+                                android:textAlignment="viewEnd"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:textColor="#5B5B5B"
+                                android:textSize="@dimen/_17ssp" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:background="#D9D9D9" />
 
 
                     </LinearLayout>
@@ -251,14 +373,44 @@
                 android:id="@+id/updateBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/update_button"
-                android:textStyle="bold"
-                android:textSize="@dimen/_12sdp"
-                android:layout_marginBottom="@dimen/_40sdp"
                 android:layout_marginLeft="@dimen/_50sdp"
                 android:layout_marginRight="@dimen/_50sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/update_button"
+                android:text="Update Profile"
                 android:textColor="@color/white"
-                android:text="Update Profile" />
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_marginRight="@dimen/_50sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/logout_button"
+                android:text="LogOUT"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_marginRight="@dimen/_50sdp"
+                android:layout_marginBottom="@dimen/_150sdp"
+                android:background="@drawable/delete_button"
+                android:text="Delete Account"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+
+
+
 
         </LinearLayout>
     </ScrollView>

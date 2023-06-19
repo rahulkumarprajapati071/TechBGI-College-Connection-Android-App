@@ -33,7 +33,6 @@ public class NotesAdapter extends FirebaseRecyclerAdapter<NotesModel,NotesAdapte
                         Intent intent = new Intent(holder.subjectName.getContext(), ViewPDF.class);
                         intent.putExtra("filename",model.getPdfSubject());
                         intent.putExtra("fileurl",model.getPdfUrl());
-                        Toast.makeText(holder.subjectName.getContext(), "main ja rha hu", Toast.LENGTH_SHORT).show();
 
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         holder.subjectName.getContext().startActivity(intent);

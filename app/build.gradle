@@ -66,9 +66,30 @@ dependencies {
     //firestore cloud
     implementation 'com.firebaseui:firebase-ui-firestore:6.3.0'
 
+    //pdf to text extracter.
+    implementation 'com.itextpdf:itextpdf:5.5.13.2'
 
+    //for use gson class
+    implementation 'com.google.code.gson:gson:2.8.9'
 
+    //for convert from json to object list
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.4'
 
+    //for Countdown
+    // https://mvnrepository.com/artifact/com.github.iwgang/countdownview
+    implementation group: 'com.github.iwgang', name: 'countdownview', version: '2.1.6'
+
+    //for password visiblity
+    implementation 'com.google.android.material:material:1.4.0'
+
+    //pdf veiwer
+    implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
+
+    //for notification or FCM
+    implementation 'com.google.firebase:firebase-messaging:23.0.0'
+
+    //Volly Libray..
+    implementation 'com.android.volley:volley:1.2.0'
 
 
 }

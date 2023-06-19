@@ -48,11 +48,6 @@ public class CompanyAdapter extends FirebaseRecyclerAdapter<CompanyModel,Company
             img1 = itemView.findViewById(R.id.img1);
             company = itemView.findViewById(R.id.company);
             date = itemView.findViewById(R.id.date);
-
-
-
-
-
         }
     }
 }

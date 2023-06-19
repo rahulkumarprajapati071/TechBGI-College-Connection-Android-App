@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lite_blue"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".activity.DeleteAccountVerification">
+
+    <EditText
+        android:background="@drawable/backgrounbox"
+        android:layout_width="wrap_content"
+        android:padding="@dimen/_10sdp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etdPass"
+        android:hint="Enter Correct Password"
+        android:focusable="true">
+    </EditText>
+    <Button
+        android:id="@+id/deletebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="Delete Permanently"
+        android:textColor="@color/white"
+        android:padding="@dimen/_10sdp"
+        android:background="@drawable/delete_button">
+
+    </Button>
+</LinearLayout>

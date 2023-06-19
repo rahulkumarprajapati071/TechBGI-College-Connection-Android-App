@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/lite_blue"
+    tools:context=".activity.TestQuestionsScreen">
+
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical"
+           android:padding="@dimen/_16sdp">
+
+           <TextView
+               android:id="@+id/timerText"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="18sp"
+               android:text="24"
+               android:textColor="@android:color/black"
+               android:layout_marginTop="16dp"
+               android:layout_marginBottom="16dp"
+               android:layout_gravity="center_horizontal"/>
+
+           <TextView
+               android:id="@+id/questionText"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textSize="@dimen/_25ssp"
+               android:textStyle="bold"
+               android:layout_marginTop="@dimen/_30sdp"
+               android:layout_marginBottom="16dp" />
+
+           <RadioGroup
+               android:id="@+id/optionsRadioGroup"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical" />
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal">
+               <Button
+                   android:id="@+id/previousButton"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:text="Previous"
+                   android:layout_marginTop="16dp"
+                   android:enabled="false" />
+
+               <Button
+                   android:id="@+id/nextButton"
+                   android:layout_width="wrap_content"
+                   android:backgroundTint="@color/blue_college"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:text="Next"
+                   android:textColor="@color/white"
+                   android:layout_marginTop="16dp" />
+
+               <Button
+                   android:id="@+id/submitButton"
+                   android:layout_weight="1"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Submit"
+                   android:background="@drawable/call_back"
+                   android:layout_marginTop="16dp"
+                   android:visibility="gone" />
+
+           </LinearLayout>
+
+       </LinearLayout>
+   </ScrollView>
+
+</LinearLayout>

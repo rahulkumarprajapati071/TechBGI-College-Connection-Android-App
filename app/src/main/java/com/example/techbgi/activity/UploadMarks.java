@@ -1,23 +1,14 @@
 package com.example.techbgi.activity;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -25,23 +16,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.techbgi.R;
-import com.example.techbgi.activity.fullscreen.BaseActivity;
+import com.example.techbgi.database.DbHelper;
+import com.example.techbgi.dialog.MyDialog;
 import com.example.techbgi.model.ClassItem;
-import com.example.techbgi.model.CompanyModel;
-import com.example.techbgi.model.StudentRegistrationModel;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.text.DateFormat;
-import java.util.Calendar;
 
 public class UploadMarks extends AppCompatActivity {
 
@@ -52,8 +36,11 @@ public class UploadMarks extends AppCompatActivity {
 
     DbHelper dbHelper = new DbHelper();
     DatabaseReference reference;
+    FirebaseUser firebaseUser;
+
 
     FirebaseStorage firebaseStorage;
+    MyDialog dialog = new MyDialog();
 
     FloatingActionButton fab;
 
@@ -85,9 +72,7 @@ public class UploadMarks extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         reference = database.getReferenceFromUrl("https://techbgi-default-rtdb.firebaseio.com/");
         firebaseStorage = FirebaseStorage.getInstance();
-
-        Button add = dialog.findViewById(R.id.addbtn);
-        Button cancle = dialog.findViewById(R.id.cancel);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         classname = dialog.findViewById(R.id.classname);
         subjectname = dialog.findViewById(R.id.subjectname);
@@ -96,39 +81,29 @@ public class UploadMarks extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
+                showDialog();
             }
         });
 
+    }
+    private void showDialog() {
+        dialog.show(getSupportFragmentManager(), MyDialog.CLASS_ADD_DIALOG);
+        dialog.setListenter((semester,className, subjectName) -> {
+            addClass(semester,className, subjectName);
+            dialog.dismiss();
+        });
 
-        add.setOnClickListener(new View.OnClickListener() {
+    }
+
+    private void addClass(String semester, String className, String subjectName) {
+        String id = reference.child("classOfMarks").push().getKey();
+        ClassItem classItem = new ClassItem(className,FirebaseAuth.getInstance().getUid(),semester,subjectName,id);
+        assert id != null;
+        reference.child("classOfMarks").child(firebaseUser.getUid()).child(id).setValue(classItem).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onClick(View v) {
-                String className = classname.getText().toString();
-                String subjectName = subjectname.getText().toString();
-                if(className.trim().isEmpty() || subjectName.trim().isEmpty()){
-                    Toast.makeText(UploadMarks.this, "Please fill all data", Toast.LENGTH_SHORT).show();
-                }else{
-                    String id = reference.child("classOfMarks").push().getKey();
-                    ClassItem classItem = new ClassItem(id,className,subjectName);
-                    assert id != null;
-                    reference.child("classOfMarks").child(id).setValue(classItem).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(UploadMarks.this, "Class Not Added", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    subjectname.setText("");
-                    classname.setText("");
-                }
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(UploadMarks.this, "Class Not Added", Toast.LENGTH_SHORT).show();
             }
         });
-        cancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
     }
 }

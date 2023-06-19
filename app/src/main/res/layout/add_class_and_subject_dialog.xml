@@ -20,6 +20,18 @@
         android:orientation="vertical"
         android:gravity="center">
 
+        <EditText
+            android:id="@+id/semester"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Semester"
+            android:textSize="@dimen/_20sdp"
+            android:padding="@dimen/_8sdp"
+            android:background="@drawable/signup"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"/>
+
 
         <EditText
             android:id="@+id/classname"

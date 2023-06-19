@@ -183,7 +183,7 @@
                     android:id="@+id/totalday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="8"
+                    android:text="0"
                     android:textColor="@color/dark_grey"
                     android:fontFamily="sans-serif-medium"
                     android:textSize="@dimen/_15sdp"/>
@@ -209,7 +209,7 @@
                     android:id="@+id/present"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5"
+                    android:text="0"
                     android:textColor="@color/dark_grey"
                     android:fontFamily="sans-serif-medium"
                     android:textSize="@dimen/_15sdp"/>
@@ -235,7 +235,7 @@
                     android:id="@+id/absent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3"
+                    android:text="0"
                     android:textColor="@color/dark_grey"
                     android:fontFamily="sans-serif-medium"
                     android:textSize="@dimen/_15sdp"/>
@@ -262,7 +262,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-                    android:text="62.5%"
+                    android:text="0%"
                     android:textStyle="bold"
                     android:layout_marginStart="@dimen/_70sdp"
                     android:textColor="@color/dark_grey"
@@ -271,6 +271,15 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/datanot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data not available"
+            android:textSize="@dimen/_20sdp"
+            android:textColor="@color/black"
+            android:layout_gravity="center"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

@@ -44,19 +44,29 @@
             android:padding="@dimen/_12sdp"
             android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/password"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordInputLayout"
             android:layout_width="@dimen/_230sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_10sdp"
-            android:inputType="textPassword"
-            android:background="@drawable/signup"
-            android:fontFamily="@font/robotoregular"
-            android:hint="Enter Password"
-            android:minHeight="48dp"
-            android:padding="@dimen/_12sdp"
-            android:textColor="@color/black" />
+            app:passwordToggleEnabled="true"
+            app:hintEnabled="false"
+            app:boxBackgroundMode="outline">
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:fontFamily="@font/robotoregular"
+                android:hint="Enter Password"
+                android:background="@drawable/signup"
+                android:minHeight="48dp"
+                android:padding="@dimen/_12sdp"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/forgotPassword"

@@ -2,6 +2,30 @@ package com.example.techbgi.model;
 
 public class ClassItem {
     private String className;
+    private String uid;
+
+    public ClassItem(String className, String uid, String semester, String subjectName, String classId) {
+        this.className = className;
+        this.uid = uid;
+        this.semester = semester;
+        this.subjectName = subjectName;
+        this.classId = classId;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public ClassItem(String className, String semester, String subjectName, String uid) {
+        this.className = className;
+        this.uid = uid;
+        this.semester = semester;
+        this.subjectName = subjectName;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getSemester() {
         return semester;
@@ -15,13 +39,6 @@ public class ClassItem {
     private String subjectName;
 
     private String classId;
-
-    public ClassItem(String classId,String semester,String className,String subjectName){
-        this.classId = classId;
-        this.semester = semester;
-        this.className = className;
-        this.subjectName = subjectName;
-    }
 
     public ClassItem(){}
 

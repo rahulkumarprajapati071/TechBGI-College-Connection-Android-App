@@ -14,6 +14,16 @@ public class StudentRegistrationModel {
 
     public StudentRegistrationModel(){}
 
+    public StudentRegistrationModel(String firstName, String lastName, String semester, String branch, String mobileNumber, String rollNumber, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.semester = semester;
+        this.branch = branch;
+        this.phoneNumber = mobileNumber;
+        this.rollNumber = rollNumber;
+        this.password = password;
+    }
+
     String firstName;
     String lastName;
     String branch;
@@ -21,6 +31,9 @@ public class StudentRegistrationModel {
     String password;
     String rollNumber;
     String phoneNumber;
+
+    String specialization;
+    String email;
 
     public String getImageUri() {
         return imageUri;
@@ -42,6 +55,35 @@ public class StudentRegistrationModel {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public StudentRegistrationModel(String firstName, String lastName, String branch, String semester, String password, String rollNumber, String phoneNumber, String specialization, String email, String imageUri) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.branch = branch;
+        this.semester = semester;
+        this.password = password;
+        this.rollNumber = rollNumber;
+        this.phoneNumber = phoneNumber;
+        this.specialization = specialization;
+        this.email = email;
+        this.imageUri = imageUri;
     }
 
     public void setLastName(String lastName) {

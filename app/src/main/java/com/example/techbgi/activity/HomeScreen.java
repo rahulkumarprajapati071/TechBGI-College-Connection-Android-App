@@ -1,22 +1,16 @@
 package com.example.techbgi.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.example.techbgi.R;
-import com.example.techbgi.activity.fullscreen.BaseActivity;
+import com.example.techbgi.fullscreen.BaseActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -61,13 +55,7 @@ public class HomeScreen extends BaseActivity {
                         break;
 
                     case R.id.message:
-                        Intent intent = new Intent(getApplicationContext(),MessageActivity.class);
-                        intent.putExtra("mobile",number);
-                        if(flag.equals("students")){
-                            intent.putExtra("child","students");
-                        }else{
-                            intent.putExtra("child","faculty");
-                        }
+                        Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
                         startActivity(intent);
                         break;
 

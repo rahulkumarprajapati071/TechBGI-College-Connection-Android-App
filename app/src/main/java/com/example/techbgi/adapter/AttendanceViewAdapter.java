@@ -49,7 +49,6 @@ public class AttendanceViewAdapter extends RecyclerView.Adapter<AttendanceViewAd
             holder.status.setText("Present");
             holder.carcolor.setBackgroundResource(R.color.lite_green);
         }else{
-            Toast.makeText(context, "gad", Toast.LENGTH_SHORT).show();
             holder.carcolor.setBackgroundResource(R.color.white);
         }
     }

@@ -3,30 +3,24 @@ package com.example.techbgi.activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.OpenableColumns;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.techbgi.R;
-import com.example.techbgi.activity.fullscreen.BaseActivity;
+import com.example.techbgi.database.FCMSend;
 import com.example.techbgi.model.NoticeModel;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -36,13 +30,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Objects;
 
 public class NoticeScreen extends AppCompatActivity {
@@ -51,6 +45,7 @@ public class NoticeScreen extends AppCompatActivity {
     ImageView uploadimage,uploadPdf,imagePreview;
     EditText titlenotice;
     LinearLayout layout;
+    ProgressDialog dialog;
 
     DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://techbgi-default-rtdb.firebaseio.com/");
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
@@ -73,16 +68,20 @@ public class NoticeScreen extends AppCompatActivity {
         imagePreview = findViewById(R.id.imagePreview);
         layout = findViewById(R.id.layouts);
 
-
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Please wait...");
 
         uploadFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.show();
                 title = titlenotice.getText().toString();
                 if(title.isEmpty()){
+                    dialog.dismiss();
                     titlenotice.setError("empty");
                     titlenotice.requestFocus();
                 }else if(pdfData == null && imageData == null){
+                    dialog.dismiss();
                     Toast.makeText(NoticeScreen.this, "Please select file", Toast.LENGTH_SHORT).show();
                 }else{
 //                    Toast.makeText(NoticeScreen.this, "data uploaded", Toast.LENGTH_SHORT).show();
@@ -119,6 +118,7 @@ public class NoticeScreen extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
+                    dialog.dismiss();
                     Toast.makeText(NoticeScreen.this, "something went wrong", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -135,6 +135,7 @@ public class NoticeScreen extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
+                    dialog.dismiss();
                     Toast.makeText(NoticeScreen.this, "something went wrong", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -143,10 +144,10 @@ public class NoticeScreen extends AppCompatActivity {
     }
     private void uploadData(String valueOf) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        String mobile = Objects.requireNonNull(auth.getCurrentUser()).getPhoneNumber().substring(3,13);
+        String mobile = Objects.requireNonNull(auth.getCurrentUser()).getPhoneNumber().substring(3, 13);
         String uniqueKey = reference.child("Notice").push().getKey();
 
-        //<-----------------------Geting faculty image and name from faculty database------------------------->
+        //<-----------------------Getting faculty image and name from faculty database------------------------->
 
         reference.child("faculty").child(mobile).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -154,36 +155,54 @@ public class NoticeScreen extends AppCompatActivity {
                 String userimageurl;
                 String username;
                 userimageurl = snapshot.child("imageUri").getValue(String.class);
-                username = snapshot.child("firstName").getValue(String.class)+" "+snapshot.child("lastName").getValue(String.class);
+                username = snapshot.child("firstName").getValue(String.class) + " " + snapshot.child("lastName").getValue(String.class);
+
+                long timestamp = System.currentTimeMillis(); // Get current timestamp
+
                 NoticeModel noticeModel;
-                if(req == 1){
-                    noticeModel = new NoticeModel(title,valueOf,username,userimageurl,"image");
-                }else{
-                    noticeModel = new NoticeModel(title,valueOf,username,userimageurl,"pdf");
+                if (req == 1) {
+                    noticeModel = new NoticeModel(title, valueOf, username, userimageurl, "image", timestamp);
+                } else {
+                    noticeModel = new NoticeModel(title, valueOf, username, userimageurl, "pdf", timestamp);
                 }
-                reference.child("Notice").child(uniqueKey).setValue(noticeModel).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(NoticeScreen.this, "Notice Added succesfuly", Toast.LENGTH_SHORT).show();
-                        titlenotice.setText("");
-                        imagePreview.setImageResource(0);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(NoticeScreen.this, "Failed to upload notice", Toast.LENGTH_SHORT).show();
-                    }
-                });
+
+                // Add the notice model to Firebase Realtime Database
+                reference.child("Notice").child(uniqueKey).setValue(noticeModel)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                dialog.dismiss();
+                                notification(noticeModel.getUsername(),noticeModel.getFilename());
+                                Toast.makeText(NoticeScreen.this, "Notice Added successfully", Toast.LENGTH_SHORT).show();
+                                titlenotice.setText("");
+                                imagePreview.setImageResource(0);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                dialog.dismiss();
+                                Toast.makeText(NoticeScreen.this, "Failed to upload notice", Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                dialog.dismiss();
             }
         });
 
         //<-----------------------Geting faculty image and name from faculty database------------------------->
         
+    }
+
+    private void notification(String name,String message) {
+        FCMSend.pushNotification(
+                getApplicationContext(),
+                "cbRwaps-QNaRfGxN6M9I3y:APA91bFqjx_W3njNwfsGnc8i-aG8RtIr2qykhvTdLVCrGdbkao0atTgOeOLavVWHV4HkByXJf9bU4q0IPn7EZcX1ZjTtzvUd5exBeqJvbB-chxYzSK65D79H6333gyJ1ZW5LwmunSBqy",
+                name,
+                message
+        );
     }
 
     private void openPdfManager() {

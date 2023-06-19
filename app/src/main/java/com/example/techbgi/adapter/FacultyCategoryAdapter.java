@@ -2,7 +2,6 @@ package com.example.techbgi.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.techbgi.R;
 import com.example.techbgi.activity.AddCompanies;
+import com.example.techbgi.activity.AddQuestions;
+import com.example.techbgi.activity.TestRoom;
 import com.example.techbgi.activity.AllFaculty;
 import com.example.techbgi.activity.AttendanceTaking;
 import com.example.techbgi.activity.KeepNotes;
@@ -84,7 +85,7 @@ public class FacultyCategoryAdapter extends RecyclerView.Adapter<FacultyCategory
                         context.startActivity(new Intent(context, UploadNotesFaculty.class));
                         break;
                     case 9:
-                        openAptitude();
+                        context.startActivity(new Intent(context, AddQuestions.class));
                         break;
 
                     default:
@@ -93,11 +94,15 @@ public class FacultyCategoryAdapter extends RecyclerView.Adapter<FacultyCategory
             }
         });
     }
-    private void openAptitude(){
-        Uri uri = Uri.parse("https://www.indiabix.com/");
-        Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-        context.startActivity(intent);
-    }
+
+    // fro open apptitude website...
+
+//    private void openAptitude(){
+//        Uri uri = Uri.parse("https://www.indiabix.com/");
+//        Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+//        context.startActivity(intent);
+//    }
+    // fro open apptitude website...
 
 
     @Override

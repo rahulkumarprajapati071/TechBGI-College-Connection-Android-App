@@ -5,6 +5,7 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.techbgi.R;
 import com.example.techbgi.model.ClassItem;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -19,6 +21,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
 
     ArrayList<ClassItem> classItems;
     Context context;
+    String currentUid;
 
     private OnItemClickListener onItemClickListener;
     public interface OnItemClickListener{
@@ -32,6 +35,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
     public ClassAdapter(Context context, ArrayList<ClassItem> classItems) {
         this.classItems = classItems;
         this.context = context;
+        this.currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
     @NonNull
@@ -45,9 +49,14 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
     public void onBindViewHolder(@NonNull ClassViewHolder holder,final int position) {
 
         ClassItem classItem = classItems.get(position);
-        holder.className.setText(classItem.getClassName());
-        holder.subjectName.setText(classItem.getSubjectName());
-        holder.semester.setText(classItem.getSemester());
+        if(currentUid.equals(classItem.getUid())){
+            holder.className.setText(classItem.getClassName());
+            holder.subjectName.setText(classItem.getSubjectName());
+            holder.semester.setText(classItem.getSemester());
+        }else{
+            holder.itemView.setVisibility(View.GONE);
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+        }
     }
 
     @Override

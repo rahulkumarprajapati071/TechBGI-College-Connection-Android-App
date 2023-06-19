@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
         categories.add(new CategoryModel(8,"Fees","https://cdn-icons-png.flaticon.com/512/2620/2620197.png"));
         categories.add(new CategoryModel(9,"Faculty","https://cdn-icons-png.flaticon.com/512/906/906175.png"));
         categories.add(new CategoryModel(10,"Companies","https://cdn-icons-png.flaticon.com/512/3061/3061341.png"));
-        categories.add(new CategoryModel(11,"Aptitude","https://cdn-icons-png.flaticon.com/512/7688/7688697.png"));
+        categories.add(new CategoryModel(11,"Test Room","https://cdn-icons-png.flaticon.com/128/3403/3403504.png"));
         categories.add(new CategoryModel(12,"Map","https://cdn-icons-png.flaticon.com/512/854/854894.png"));
         categories.add(new CategoryModel(13,"Campus","https://cdn-icons-png.flaticon.com/512/5205/5205264.png"));
         categories.add(new CategoryModel(14,"Previous Paper","https://cdn-icons-png.flaticon.com/512/3908/3908574.png"));

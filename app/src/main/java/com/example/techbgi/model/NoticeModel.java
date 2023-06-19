@@ -5,6 +5,24 @@ public class NoticeModel {
     String fileurl;
     String username;
     String userimageurl;
+    long timeStamp;
+
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public NoticeModel(String filename, String fileurl, String username, String userimageurl, String type,long timeStamp) {
+        this.filename = filename;
+        this.fileurl = fileurl;
+        this.username = username;
+        this.userimageurl = userimageurl;
+        this.timeStamp = timeStamp;
+        this.type = type;
+    }
 
     public String getType() {
         return type;
@@ -58,4 +76,5 @@ public class NoticeModel {
         this.userimageurl = userimageurl;
         this.type = type;
     }
+
 }

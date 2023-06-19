@@ -3,31 +3,23 @@ package com.example.techbgi.activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.techbgi.R;
-import com.example.techbgi.activity.fullscreen.BaseActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,11 +30,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class UploadTimeTable extends AppCompatActivity {
 
@@ -51,6 +41,7 @@ public class UploadTimeTable extends AppCompatActivity {
     ImageView timetable;
     private Uri pdfData;
     private String pdfName;
+    ProgressDialog progressDialog;
 
     private final DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://techbgi-default-rtdb.firebaseio.com/");
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
@@ -61,6 +52,8 @@ public class UploadTimeTable extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_time_table);
 
+        progressDialog = new ProgressDialog(this);
+
 
         semester = findViewById(R.id.semestertime);
         branch = findViewById(R.id.branchtime);
@@ -70,6 +63,8 @@ public class UploadTimeTable extends AppCompatActivity {
         TextView bc = findViewById(R.id.bc);
         View view = findViewById(R.id.v);
         TextView tx = findViewById(R.id.tx);
+
+        progressDialog.setMessage("Please wait...");
 
         String[] valueSem = {"Current Semester","1","2","3","4","5","6","7","8"};
         ArrayList<String> arrayList2 = new ArrayList<>(Arrays.asList(valueSem));
@@ -93,8 +88,10 @@ public class UploadTimeTable extends AppCompatActivity {
         uplaod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.show();
                 if(getIntent().getStringExtra("flag").equals("student")){
                     if(semester.getSelectedItemId() == 0 || branch.getSelectedItemId() == 0){
+                        progressDialog.dismiss();
                         Toast.makeText(UploadTimeTable.this, "Please select all requirements", Toast.LENGTH_SHORT).show();
                     }else{
                         semesterString = semester.getSelectedItem().toString();
@@ -102,6 +99,7 @@ public class UploadTimeTable extends AppCompatActivity {
                         reference.child("timetable").child(semesterString+branchString).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                progressDialog.dismiss();
                                 Intent intent = new Intent(getApplicationContext(),ViewPDF.class);
                                 intent.putExtra("filename","Time Table");
                                 intent.putExtra("fileurl",snapshot.child("pdfUrl").getValue(String.class));
@@ -116,6 +114,7 @@ public class UploadTimeTable extends AppCompatActivity {
                     }
                 }else{
                     if(pdfData == null || semester.getSelectedItemId() == 0 || branch.getSelectedItemId() == 0){
+                        progressDialog.dismiss();
                         Toast.makeText(UploadTimeTable.this, "Please select all requirements", Toast.LENGTH_SHORT).show();
                     }else{
                         StorageReference reference1 = storageReference.child("timetable/"+pdfName+"-"+System.currentTimeMillis()+".pdf");
@@ -130,6 +129,7 @@ public class UploadTimeTable extends AppCompatActivity {
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
+                                progressDialog.dismiss();
                                 Toast.makeText(UploadTimeTable.this, "something went wrong", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -146,6 +146,7 @@ public class UploadTimeTable extends AppCompatActivity {
                 reference.child("timetable").child(semesterString+branchString).setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
+                        progressDialog.dismiss();
                         Toast.makeText(UploadTimeTable.this, "TimeTable Added succesfuly", Toast.LENGTH_SHORT).show();
                         timetable.setImageResource(0);
                         semester.setSelection(0);
@@ -154,6 +155,7 @@ public class UploadTimeTable extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
                         Toast.makeText(UploadTimeTable.this, "Failed to upload TimeTable", Toast.LENGTH_SHORT).show();
                     }
                 });

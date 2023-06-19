@@ -2,15 +2,16 @@ package com.example.techbgi.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,11 +20,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.techbgi.R;
-import com.example.techbgi.activity.fullscreen.BaseActivity;
+import com.example.techbgi.fullscreen.BaseActivity;
+import com.example.techbgi.model.All_UserMmber;
 import com.example.techbgi.model.StudentRegistrationModel;
+import com.example.techbgi.sharedsession.SharedPreferenceSession;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,14 +40,15 @@ import com.google.firebase.storage.UploadTask;
 import java.util.Objects;
 
 public class StudentProfile extends BaseActivity {
-    EditText firstName,lastName,semester,branch,phone;
-    TextView rollnumber,username,change;
-    Button updateBtn;
+    EditText firstName,lastName,semester,branch,spec,email;
+    TextView rollnumber,username,change,phone;
+    Button updateBtn,logoutBtn,deleteBtn;
     ImageView profileImage,back;
     Uri imageUri;
     private String pass;
     String imageUrl;
     String image;
+    SharedPreferenceSession session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class StudentProfile extends BaseActivity {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://techbgi-default-rtdb.firebaseio.com/");
 
         setContentView(R.layout.activity_student_profile);
+        session = new SharedPreferenceSession(this);
 
         findId();
 
@@ -77,6 +83,8 @@ public class StudentProfile extends BaseActivity {
                 String rollnum = snapshot.child("rollNumber").getValue(String.class);
                 String sem = snapshot.child("semester").getValue(String.class);
                 String branch1 = snapshot.child("branch").getValue(String.class);
+                String email1 = snapshot.child("email").getValue(String.class);
+                String specialization1 = snapshot.child("specialization").getValue(String.class);
 
                 Glide.with(getApplicationContext()).load(image).into(profileImage);
                 rollnumber.setText(rollnum);
@@ -87,6 +95,8 @@ public class StudentProfile extends BaseActivity {
                 phone.setText(phone1);
                 username.setText(firstname+" "+lastname);
                 pass = password;
+                email.setText(email1 == null ?"mohon.joshi@sdbc.ac.in":email1);
+                spec.setText(specialization1 == null ? "Data Science": specialization1);
             }
 
             @Override
@@ -119,7 +129,9 @@ public class StudentProfile extends BaseActivity {
                                     public void onSuccess(Uri uri) {
 
                                         imageUrl = uri.toString();
-                                        StudentRegistrationModel studentRegistrationModel = new StudentRegistrationModel(firstName.getText().toString(),lastName.getText().toString(),branch.getText().toString(),semester.getText().toString(),pass,rollnumber.getText().toString(),phone.getText().toString(),imageUrl);
+                                        StudentRegistrationModel studentRegistrationModel = new StudentRegistrationModel(firstName.getText().toString(),lastName.getText().toString(),branch.getText().toString(),semester.getText().toString(),pass,rollnumber.getText().toString(),phone.getText().toString(),spec.getText().toString(),email.getText().toString(),imageUrl);
+                                        All_UserMmber all_userMmber = new All_UserMmber(firstName.getText().toString()+" "+lastName.getText().toString(), FirebaseAuth.getInstance().getUid(),imageUrl);
+                                        reference.child("All Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).setValue(all_userMmber);
                                         reference.child("students").child(phone.getText().toString()).setValue(studentRegistrationModel);
                                     }
                                 });
@@ -127,9 +139,45 @@ public class StudentProfile extends BaseActivity {
                         }
                     });
                 }else{
-                    StudentRegistrationModel studentRegistrationModel = new StudentRegistrationModel(firstName.getText().toString(),lastName.getText().toString(),branch.getText().toString(),semester.getText().toString(),pass,rollnumber.getText().toString(),phone.getText().toString(),image);
+                    StudentRegistrationModel studentRegistrationModel = new StudentRegistrationModel(firstName.getText().toString(),lastName.getText().toString(),branch.getText().toString(),semester.getText().toString(),pass,rollnumber.getText().toString(),phone.getText().toString(),spec.getText().toString(),email.getText().toString(),image);
+                    All_UserMmber all_userMmber = new All_UserMmber(firstName.getText().toString()+" "+lastName.getText().toString(), FirebaseAuth.getInstance().getUid(),image);
+                    reference.child("All Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).setValue(all_userMmber);
                     reference.child("students").child(phone.getText().toString()).setValue(studentRegistrationModel);
                 }
+                Toast.makeText(StudentProfile.this, "Profile Successfuly Updated", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Show confirmation dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(StudentProfile.this);
+                builder.setTitle("Confirm Deletion");
+                builder.setMessage("Are you sure you want to delete your account?");
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Delete account
+                        Intent arguments = new Intent(getApplicationContext(), DeleteAccountVerification.class);
+                        arguments.putExtra("mobileNumber", phone.getText().toString());
+                        arguments.putExtra("flag", "0");
+                        startActivity(arguments);
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+                builder.show();
+            }
+        });
+
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "LOGOUT", Toast.LENGTH_SHORT).show();
+                session.setWho("none");
+                startActivity(new Intent(getApplicationContext(), FrontScreen.class));
+                finish();
             }
         });
 
@@ -181,6 +229,8 @@ public class StudentProfile extends BaseActivity {
             }
         });
     }
+
+
     public void findId()
     {
         profileImage = findViewById(R.id.profile_image);
@@ -190,11 +240,16 @@ public class StudentProfile extends BaseActivity {
         semester = findViewById(R.id.semester);
         branch = findViewById(R.id.branch);
         updateBtn = findViewById(R.id.updateBtn);
-        phone = findViewById(R.id.phone);
-        phone.setEnabled(false);
+        phone = findViewById(R.id.mobile);
+        semester.setEnabled(false);
+        branch.setEnabled(false);
+        spec = findViewById(R.id.spec);
+        email = findViewById(R.id.email);
         username = findViewById(R.id.username);
         change = findViewById(R.id.password);
         back = findViewById(R.id.back);
+        logoutBtn = findViewById(R.id.logout);
+        deleteBtn = findViewById(R.id.delete);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
