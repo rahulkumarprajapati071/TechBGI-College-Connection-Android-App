@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lite_blue"
+    tools:context=".activity.TestRoom">
+
+    <include
+        android:id="@+id/attentoolbarMain"
+        layout="@layout/attentoolbar"/>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/attentoolbarMain">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:orientation="vertical"
+          android:layout_height="match_parent">
+
+          <androidx.cardview.widget.CardView
+              android:layout_width="match_parent"
+              android:id="@+id/first"
+              android:layout_height="@dimen/_170sdp"
+              android:layout_below="@+id/attentoolbarMain"
+              android:layout_marginStart="@dimen/_20sdp"
+              android:layout_marginTop="@dimen/_20sdp"
+              android:elevation="@dimen/_6sdp"
+              android:layout_marginEnd="@dimen/_20sdp"
+              android:layout_marginBottom="@dimen/_20sdp"
+              app:cardCornerRadius="@dimen/_20sdp">
+              <ImageView
+                  android:layout_width="@dimen/_80sdp"
+                  android:layout_height="@dimen/_80sdp"
+                  android:layout_marginTop="@dimen/_20sdp"
+                  android:layout_marginLeft="@dimen/_30sdp"
+                  android:src="@drawable/adaptation"
+                  android:contentDescription="TODO" />
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Quantitative Apptitude"
+                  android:layout_marginTop="@dimen/_125sdp"
+                  android:layout_marginLeft="@dimen/_25sdp"
+                  android:textSize="@dimen/_20ssp"
+                  android:fontFamily="@font/itim_regular"
+                  android:textStyle="bold"
+                  android:textColor="@color/black"/>
+
+              <TextView
+                  android:layout_width="@dimen/_90sdp"
+                  android:layout_height="wrap_content"
+                  android:text="> START"
+                  android:id="@+id/firstAdd"
+                  android:onClick="onViewClick"
+                  android:paddingStart="@dimen/_4sdp"
+                  android:layout_marginLeft="@dimen/_180sdp"
+                  android:layout_marginTop="@dimen/_20sdp"
+                  android:textStyle="bold"
+                  android:textColor="@color/white"
+                  android:background="@drawable/start"
+                  android:fontFamily="@font/itim_regular"
+                  android:textSize="@dimen/_20sdp"/>
+          </androidx.cardview.widget.CardView>
+
+          <androidx.cardview.widget.CardView
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/_170sdp"
+              android:layout_below="@+id/first"
+              android:id="@+id/second"
+              android:layout_marginStart="@dimen/_20sdp"
+              android:layout_marginTop="@dimen/_5sdp"
+              android:elevation="@dimen/_6sdp"
+              android:layout_marginEnd="@dimen/_20sdp"
+              android:layout_marginBottom="@dimen/_20sdp"
+              app:cardCornerRadius="@dimen/_20sdp">
+              <ImageView
+                  android:layout_width="@dimen/_80sdp"
+                  android:layout_height="@dimen/_80sdp"
+                  android:layout_marginTop="@dimen/_20sdp"
+                  android:layout_marginLeft="@dimen/_30sdp"
+                  android:src="@drawable/puzzle"
+                  android:contentDescription="TODO" />
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Logical Reasoning"
+                  android:layout_marginTop="@dimen/_125sdp"
+                  android:layout_marginLeft="@dimen/_25sdp"
+                  android:textSize="@dimen/_20ssp"
+                  android:fontFamily="@font/itim_regular"
+                  android:textStyle="bold"
+                  android:textColor="@color/black"/>
+
+              <TextView
+                  android:layout_width="@dimen/_90sdp"
+                  android:layout_height="wrap_content"
+                  android:text="> START"
+                  android:id="@+id/secondAdd"
+                  android:onClick="onViewClick"
+                  android:paddingStart="@dimen/_4sdp"
+                  android:layout_marginLeft="@dimen/_180sdp"
+                  android:layout_marginTop="@dimen/_20sdp"
+                  android:textStyle="bold"
+                  android:textColor="@color/white"
+                  android:background="@drawable/start"
+                  android:fontFamily="@font/itim_regular"
+                  android:textSize="@dimen/_20sdp"/>
+          </androidx.cardview.widget.CardView>
+          <androidx.cardview.widget.CardView
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/_170sdp"
+              android:layout_below="@+id/second"
+              android:id="@+id/third"
+              android:layout_marginStart="@dimen/_20sdp"
+              android:layout_marginTop="@dimen/_5sdp"
+              android:elevation="@dimen/_6sdp"
+              android:layout_marginEnd="@dimen/_20sdp"
+              android:layout_marginBottom="@dimen/_20sdp"
+              app:cardCornerRadius="@dimen/_20sdp">
+              <ImageView
+                  android:layout_width="@dimen/_80sdp"
+                  android:layout_height="@dimen/_80sdp"
+                  android:layout_marginTop="@dimen/_20sdp"
+                  android:layout_marginLeft="@dimen/_30sdp"
+                  android:src="@drawable/group"
+                  android:contentDescription="TODO" />
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Verbal Reasoning"
+                  android:layout_marginTop="@dimen/_125sdp"
+                  android:layout_marginLeft="@dimen/_25sdp"
+                  android:textSize="@dimen/_20ssp"
+                  android:fontFamily="@font/itim_regular"
+                  android:textStyle="bold"
+                  android:textColor="@color/black"/>
+
+              <TextView
+                  android:layout_width="@dimen/_90sdp"
+                  android:layout_height="wrap_content"
+                  android:text="> START"
+                  android:id="@+id/thirdAdd"
+                  android:paddingStart="@dimen/_4sdp"
+                  android:onClick="onViewClick"
+                  android:layout_marginLeft="@dimen/_180sdp"
+                  android:layout_marginTop="@dimen/_20sdp"
+                  android:textStyle="bold"
+                  android:textColor="@color/white"
+                  android:background="@drawable/start"
+                  android:fontFamily="@font/itim_regular"
+                  android:textSize="@dimen/_20sdp"/>
+          </androidx.cardview.widget.CardView>
+          <androidx.cardview.widget.CardView
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/_170sdp"
+              android:id="@+id/fourth"
+              android:layout_below="@+id/third"
+              android:layout_marginStart="@dimen/_20sdp"
+              android:layout_marginTop="@dimen/_5sdp"
+              android:elevation="@dimen/_6sdp"
+              android:layout_marginEnd="@dimen/_20sdp"
+              android:layout_marginBottom="@dimen/_20sdp"
+              app:cardCornerRadius="@dimen/_20sdp">
+              <ImageView
+                  android:layout_width="@dimen/_80sdp"
+                  android:layout_height="@dimen/_80sdp"
+                  android:layout_marginTop="@dimen/_20sdp"
+                  android:layout_marginLeft="@dimen/_30sdp"
+                  android:src="@drawable/binary"
+                  android:contentDescription="TODO" />
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Technical"
+                  android:layout_marginTop="@dimen/_125sdp"
+                  android:layout_marginLeft="@dimen/_25sdp"
+                  android:textSize="@dimen/_20ssp"
+                  android:fontFamily="@font/itim_regular"
+                  android:textStyle="bold"
+                  android:textColor="@color/black"/>
+
+              <TextView
+                  android:layout_width="@dimen/_90sdp"
+                  android:layout_height="wrap_content"
+                  android:text="> START"
+                  android:id="@+id/fourthAdd"
+                  android:onClick="onViewClick"
+                  android:paddingStart="@dimen/_4sdp"
+                  android:layout_marginLeft="@dimen/_180sdp"
+                  android:layout_marginTop="@dimen/_20sdp"
+                  android:textStyle="bold"
+                  android:textColor="@color/white"
+                  android:background="@drawable/start"
+                  android:fontFamily="@font/itim_regular"
+                  android:textSize="@dimen/_20sdp"/>
+          </androidx.cardview.widget.CardView>
+      </LinearLayout>
+  </ScrollView>
+
+</RelativeLayout>
